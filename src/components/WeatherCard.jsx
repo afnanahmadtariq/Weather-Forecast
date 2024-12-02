@@ -1,30 +1,28 @@
 /* eslint-disable react/prop-types */
 import { Card } from 'react-bootstrap';
 import { getWeatherIcon } from '../utils/weatherIcons';
-import { formatTime } from '../utils/dateUtils';
 import { WiHumidity, WiStrongWind } from 'react-icons/wi';
 
 const WeatherCard = ({ data, date }) => {
   const WeatherIcon = getWeatherIcon(data.weather, data.timepoint);
 
   return (
-    <Card className="h-100 weather-card">
+    <Card className="weather-card shadow border-0">
       <Card.Body className="text-center">
-        <h5 className="mb-3">{date}</h5>
+        <h6 className="date mb-2">{date}</h6>
         <div className="weather-icon mb-3">
-          <WeatherIcon size={48} />
+          <WeatherIcon size={64} />
         </div>
-        <h4 className="temperature">{data.temp2m}°C</h4>
+        <h2 className="temperature mb-3">{data.temp2m}°C</h2>
         <div className="weather-details">
-          <p className="mb-2">
-            <WiHumidity className="me-1" size={20} />
-            <span>{data.rh2m}%</span>
+          <p className="mb-2 d-flex align-items-center justify-content-center">
+            <WiHumidity className="me-2" size={20} />
+            {data.rh2m}%
           </p>
-          <p className="mb-2">
-            <WiStrongWind className="me-1" size={20} />
-            <span>{data.wind10m.speed} m/s</span>
+          <p className="d-flex align-items-center justify-content-center">
+            <WiStrongWind className="me-2" size={20} />
+            {data.wind10m.speed} m/s
           </p>
-          <p className="time">{formatTime(data.timepoint)}</p>
         </div>
       </Card.Body>
     </Card>

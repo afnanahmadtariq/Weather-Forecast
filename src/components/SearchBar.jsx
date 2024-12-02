@@ -1,9 +1,9 @@
-/* eslint-disable react/prop-types */
 import React, { useState, useCallback } from 'react';
 import { Form, ListGroup } from 'react-bootstrap';
 import { useDebounce } from '../hooks/useDebounce';
 import { searchCities } from '../services/citySearch';
 
+// eslint-disable-next-line react/prop-types
 const SearchBar = ({ onSearch }) => {
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
@@ -29,18 +29,19 @@ const SearchBar = ({ onSearch }) => {
   }, [debouncedQuery, handleSearch]);
 
   return (
-    <div className="position-relative mb-4">
+    <div className="position-relative mb-4 search-container">
       <Form>
         <Form.Control
+          className="search-bar"
           type="text"
-          placeholder="Search for a city..."
+          placeholder="Search for cities..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           autoComplete="off"
         />
       </Form>
       {suggestions.length > 0 && (
-        <ListGroup className="position-absolute w-100 shadow-sm">
+        <ListGroup className="suggestions position-absolute w-100 shadow-sm">
           {suggestions.map((city) => (
             <ListGroup.Item
               key={city.id}

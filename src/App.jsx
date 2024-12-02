@@ -26,7 +26,10 @@ function App() {
 
   return (
     <Container className="py-5">
-      <h1 className="text-center mb-4">Weather Forecast</h1>
+      <div className="d-flex justify-content-center align-items-center">
+        <img src="/icon.svg" alt="weather-icon" className="img-fluid" />
+        <h1 className="text-center mb-4">Weather Forecast</h1>
+      </div>
       <SearchBar onSearch={handleSearch} />
       {error && (
         <Alert variant="danger" className="mb-4">
