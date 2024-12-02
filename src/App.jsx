@@ -20,7 +20,7 @@ function App() {
       setError('Failed to fetch weather data. Please try again.');
       console.error('Error:', err);
     } finally {
-      setLoading(false); // Set loading to false when fetching finishes (either success or failure)
+      setLoading(false);
     }
   };
 
@@ -36,7 +36,7 @@ function App() {
           {error}
         </Alert>
       )}
-      {loading ? (  // Show loading spinner if data is being fetched
+      {loading ? ( 
         <div className="text-center">
           <Spinner animation="border" variant="primary" />
         </div>
