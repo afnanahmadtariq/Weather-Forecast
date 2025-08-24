@@ -25,7 +25,9 @@ html {
 }
         `}</style>
       </head>
-      <body>{children}</body>
+      <div className="min-h-screen bg-[url('/rain.png')] text-white p-6">
+        <body>{children}</body>
+      </div>
     </html>
   )
 }

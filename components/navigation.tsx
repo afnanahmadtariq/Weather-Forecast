@@ -15,7 +15,10 @@ export function Navigation() {
   ]
 
   return (
-    <div className="w-16 bg-slate-800/50 rounded-2xl p-4 flex flex-col items-center gap-8">
+    <div className="w-16 backdrop-blur-lg bg-white/10 shadow-lg rounded-2xl p-4 flex flex-col items-center gap-8">
+    <div className="pointer-events-none absolute inset-0 rounded-2xl
+    [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)]
+    bg-white/30"></div>
       <div className="p-2 bg-blue-500 rounded-lg">
         <WiWindy size={24} color="white" />
       </div>
