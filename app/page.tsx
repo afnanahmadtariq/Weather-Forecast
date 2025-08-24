@@ -43,7 +43,7 @@ export default function WeatherApp() {
             </div>
             <div className="relative">
               <img
-                src="/bright-sunny-weather-icon-with-sun-rays-golden-ora.png"
+                src="/sunny.png"
                 alt="Sunny weather"
                 className="w-32 h-32"
               />
@@ -68,23 +68,23 @@ export default function WeatherApp() {
                 <p className="text-white/[0.6] text-sm mb-4">{item.time}</p>
                 <div className="flex justify-center mb-4">
                   {item.icon === "cloudy" && (
-                    <img src="/grey-cloudy-weather-icon.png" alt="Cloudy" className="w-12 h-12" />
+                    <img src="/cloudy.png" alt="Cloudy" className="w-12 h-auto" />
                   )}
                   {item.icon === "partly-sunny" && (
                     <img
-                      src="/partly-sunny-weather-icon-with-sun-and-clouds.png"
+                      src="/cloudy-with-sun.png"
                       alt="Partly sunny"
-                      className="w-12 h-12"
+                      className="w-12 h-auto"
                     />
                   )}
                   {item.icon === "sunny" && (
-                    <img src="/bright-sunny-weather-icon-golden-orange.png" alt="Sunny" className="w-12 h-12" />
+                    <img src="/sunny.png" alt="Sunny" className="w-12 h-auto" />
                   )}
                   {item.icon === "partly-cloudy" && (
                     <img
-                      src="/partly-cloudy-weather-icon-with-sun-behind-clouds.png"
+                      src="/cloudy-with-sun.png"
                       alt="Partly cloudy"
-                      className="w-12 h-12"
+                      className="w-12 h-auto"
                     />
                   )}
                 </div>
@@ -227,18 +227,18 @@ export default function WeatherApp() {
             <div key={index} className="flex items-center justify-between py-2">
               <div className="flex items-center gap-4">
                 <div className="w-12 text-white/[0.6] text-sm">{item.day}</div>
-                <div className="w-8 h-8 flex items-center justify-center">
+                <div className="w-8 h-auto flex items-center justify-center">
                   {item.icon === "sunny" && (
-                    <img src="/small-sunny-weather-icon-golden-orange.png" alt="Sunny" className="w-8 h-8" />
+                    <img src="/sunny.png" alt="Sunny" className="w-8 h-auto" />
                   )}
                   {item.icon === "cloudy" && (
-                    <img src="/small-cloudy-weather-icon-grey.png" alt="Cloudy" className="w-8 h-8" />
+                    <img src="/small-cloudy-weather-icon-grey.png" alt="Cloudy" className="w-8 h-auto" />
                   )}
                   {item.icon === "rainy" && (
-                    <img src="/small-rainy-weather-icon-with-raindrops.png" alt="Rainy" className="w-8 h-8" />
+                    <img src="/rainy.png" alt="Rainy" className="w-8 h-auto" />
                   )}
                   {item.icon === "storm" && (
-                    <img src="/small-storm-weather-icon-with-lightning-bolt.png" alt="Storm" className="w-8 h-8" />
+                    <img src="/small-storm-weather-icon-with-lightning-bolt.png" alt="Storm" className="w-8 h-auto" />
                   )}
                 </div>
                 <div className="text-white">{item.condition}</div>
