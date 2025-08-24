@@ -19,26 +19,26 @@ export default function WeatherApp() {
   const [showMoreConditions, setShowMoreConditions] = useState(false)
 
   return (
-    <div className="max-h-screen mx-auto flex gap-6">
+    <div className="mx-auto flex gap-6">
       {/* Main Content */}
       <div className="flex-1 space-y-6">
         {/* Search Bar */}
         <div className="relative">
-          <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/30"></div>
-          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+          <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/5"></div>
+          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/[0.6]" />
           <Input
             placeholder="Search for cities"
-            className="backdrop-blur-lg bg-white/10 shadow-lg border-white/20 pl-12 h-12 text-white placeholder:text-slate-400"
+            className="backdrop-blur-xs bg-white/5 shadow-lg border-white/20 pl-12 h-12 text-white placeholder:text-white/[0.8]"
           />
         </div>
 
         {/* Current Weather */}
-        <div className="backdrop-blur-lg bg-white/10 shadow-lg rounded-2xl p-8">
-        <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/30"></div>
+        <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-8">
+          <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/5"></div>
           <div className="flex items-start justify-between">
             <div>
               <h1 className="text-4xl font-light mb-2">Madrid</h1>
-              <p className="text-slate-400 mb-8">Chance of rain: 0%</p>
+              <p className="text-white/[0.6] mb-8">Chance of rain: 0%</p>
               <div className="text-8xl font-light">31°</div>
             </div>
             <div className="relative">
@@ -52,9 +52,9 @@ export default function WeatherApp() {
         </div>
 
         {/* Today's Forecast */}
-        <div className="backdrop-blur-lg bg-white/10 shadow-lg rounded-2xl p-6">
-        <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/30"></div>
-          <h3 className="text-slate-400 text-sm font-medium mb-6 uppercase tracking-wider">Today's Forecast</h3>
+        <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6">
+          <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/5"></div>
+          <h3 className="text-white/[0.6] text-sm font-medium mb-6 uppercase tracking-wider">Today's Forecast</h3>
           <div className="grid grid-cols-6 gap-4">
             {[
               { time: "6:00 AM", temp: "25°", icon: "cloudy" },
@@ -65,7 +65,7 @@ export default function WeatherApp() {
               { time: "9:00 PM", temp: "30°", icon: "partly-cloudy" },
             ].map((item, index) => (
               <div key={index} className="text-center">
-                <p className="text-slate-400 text-sm mb-4">{item.time}</p>
+                <p className="text-white/[0.6] text-sm mb-4">{item.time}</p>
                 <div className="flex justify-center mb-4">
                   {item.icon === "cloudy" && (
                     <img src="/grey-cloudy-weather-icon.png" alt="Cloudy" className="w-12 h-12" />
@@ -95,10 +95,10 @@ export default function WeatherApp() {
         </div>
 
         {/* Air Conditions */}
-        <div className="backdrop-blur-lg bg-white/10 shadow-lg rounded-2xl p-6">
-        <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/30"></div>
+        <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6">
+          <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/5"></div>
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-slate-400 text-sm font-medium uppercase tracking-wider">Air Conditions</h3>
+            <h3 className="text-white/[0.6] text-sm font-medium uppercase tracking-wider">Air Conditions</h3>
             <Button
               variant="outline"
               size="sm"
@@ -115,56 +115,56 @@ export default function WeatherApp() {
                 <div className="bg-slate-700/30 rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-2">
                     <WiDayHaze size={20} color="#94a3b8" />
-                    <p className="text-slate-400 text-sm uppercase tracking-wide">UV Index</p>
+                    <p className="text-white/[0.6] text-sm uppercase tracking-wide">UV Index</p>
                   </div>
                   <p className="text-3xl font-light">3</p>
                 </div>
                 <div className="bg-slate-700/30 rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-2">
                     <WiStrongWind size={20} color="#94a3b8" />
-                    <p className="text-slate-400 text-sm uppercase tracking-wide">Wind</p>
+                    <p className="text-white/[0.6] text-sm uppercase tracking-wide">Wind</p>
                   </div>
                   <p className="text-3xl font-light">0.2 km/h</p>
                 </div>
                 <div className="bg-slate-700/30 rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-2">
                     <WiHumidity size={20} color="#94a3b8" />
-                    <p className="text-slate-400 text-sm uppercase tracking-wide">Humidity</p>
+                    <p className="text-white/[0.6] text-sm uppercase tracking-wide">Humidity</p>
                   </div>
                   <p className="text-3xl font-light">56%</p>
                 </div>
                 <div className="bg-slate-700/30 rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-2">
                     <WiDayFog size={20} color="#94a3b8" />
-                    <p className="text-slate-400 text-sm uppercase tracking-wide">Visibility</p>
+                    <p className="text-white/[0.6] text-sm uppercase tracking-wide">Visibility</p>
                   </div>
                   <p className="text-3xl font-light">12 km</p>
                 </div>
                 <div className="bg-slate-700/30 rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-2">
                     <WiThermometer size={20} color="#94a3b8" />
-                    <p className="text-slate-400 text-sm uppercase tracking-wide">Feels Like</p>
+                    <p className="text-white/[0.6] text-sm uppercase tracking-wide">Feels Like</p>
                   </div>
                   <p className="text-3xl font-light">30°</p>
                 </div>
                 <div className="bg-slate-700/30 rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-2">
                     <WiHumidity size={20} color="#94a3b8" />
-                    <p className="text-slate-400 text-sm uppercase tracking-wide">Chance of Rain</p>
+                    <p className="text-white/[0.6] text-sm uppercase tracking-wide">Chance of Rain</p>
                   </div>
                   <p className="text-3xl font-light">0%</p>
                 </div>
                 <div className="bg-slate-700/30 rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-2">
                     <WiBarometer size={20} color="#94a3b8" />
-                    <p className="text-slate-400 text-sm uppercase tracking-wide">Pressure</p>
+                    <p className="text-white/[0.6] text-sm uppercase tracking-wide">Pressure</p>
                   </div>
                   <p className="text-3xl font-light">1008 hPa</p>
                 </div>
                 <div className="bg-slate-700/30 rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-2">
                     <WiSunset size={20} color="#94a3b8" />
-                    <p className="text-slate-400 text-sm uppercase tracking-wide">Sunset</p>
+                    <p className="text-white/[0.6] text-sm uppercase tracking-wide">Sunset</p>
                   </div>
                   <p className="text-3xl font-light">20:58</p>
                 </div>
@@ -176,14 +176,14 @@ export default function WeatherApp() {
                   <div className="flex items-center gap-3">
                     <WiThermometer size={20} color="#94a3b8" />
                     <div>
-                      <p className="text-slate-400 text-sm">Real Feel</p>
+                      <p className="text-white/[0.6] text-sm">Real Feel</p>
                       <p className="text-2xl font-light">30°</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
                     <WiHumidity size={20} color="#94a3b8" />
                     <div>
-                      <p className="text-slate-400 text-sm">Chance of rain</p>
+                      <p className="text-white/[0.6] text-sm">Chance of rain</p>
                       <p className="text-2xl font-light">0%</p>
                     </div>
                   </div>
@@ -192,14 +192,14 @@ export default function WeatherApp() {
                   <div className="flex items-center gap-3">
                     <WiStrongWind size={20} color="#94a3b8" />
                     <div>
-                      <p className="text-slate-400 text-sm">Wind</p>
+                      <p className="text-white/[0.6] text-sm">Wind</p>
                       <p className="text-2xl font-light">0.2 km/h</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
                     <WiDayHaze size={20} color="#94a3b8" />
                     <div>
-                      <p className="text-slate-400 text-sm">UV Index</p>
+                      <p className="text-white/[0.6] text-sm">UV Index</p>
                       <p className="text-2xl font-light">3</p>
                     </div>
                   </div>
@@ -211,9 +211,9 @@ export default function WeatherApp() {
       </div>
 
       {/* Right Sidebar - 7-Day Forecast */}
-      <div className="w-80 backdrop-blur-lg bg-white/10 shadow-lg rounded-2xl p-6">
-      <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/30"></div>
-        <h3 className="text-slate-400 text-sm font-medium mb-6 uppercase tracking-wider">7-Day Forecast</h3>
+      <div className="w-80 backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6">
+        <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/5"></div>
+        <h3 className="text-white/[0.6] text-sm font-medium mb-6 uppercase tracking-wider">7-Day Forecast</h3>
         <div className="space-y-4">
           {[
             { day: "Today", icon: "sunny", condition: "Sunny", high: "36", low: "22" },
@@ -226,7 +226,7 @@ export default function WeatherApp() {
           ].map((item, index) => (
             <div key={index} className="flex items-center justify-between py-2">
               <div className="flex items-center gap-4">
-                <div className="w-12 text-slate-400 text-sm">{item.day}</div>
+                <div className="w-12 text-white/[0.6] text-sm">{item.day}</div>
                 <div className="w-8 h-8 flex items-center justify-center">
                   {item.icon === "sunny" && (
                     <img src="/small-sunny-weather-icon-golden-orange.png" alt="Sunny" className="w-8 h-8" />
@@ -245,7 +245,7 @@ export default function WeatherApp() {
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <span className="text-white">{item.high}</span>
-                <span className="text-slate-400">/{item.low}</span>
+                <span className="text-white/[0.6]">/{item.low}</span>
               </div>
             </div>
           ))}

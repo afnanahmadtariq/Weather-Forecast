@@ -25,10 +25,10 @@ export default function RootLayout({
           }
         `}</style>
       </head>
-      <body className="min-h-screen bg-[url('/rain.png')] text-white p-6">
+    <body className="min-h-screen bg-[url('/rain.png')] text-white p-6">
         <Navigation />
-        <div className="ml-24">{children}</div>
-      </body>
+        <div className="ml-[5.5rem]">{children}</div>
+    </body>
     </html>
   )
 }
