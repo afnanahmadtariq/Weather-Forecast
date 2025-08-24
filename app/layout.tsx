@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import './globals.css'
+import { Navigation } from '@/components/navigation'
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
-  generator: 'v0.app',
+  title: 'Weather Forecast',
+  description: 'A simple weather forecast application'
 }
 
 export default function RootLayout({
@@ -18,16 +18,17 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <style>{`
-html {
-  font-family: ${GeistSans.style.fontFamily};
-  --font-sans: ${GeistSans.variable};
-  --font-mono: ${GeistMono.variable};
-}
+          html {
+            font-family: ${GeistSans.style.fontFamily};
+            --font-sans: ${GeistSans.variable};
+            --font-mono: ${GeistMono.variable};
+          }
         `}</style>
       </head>
-      <div className="min-h-screen bg-[url('/rain.png')] text-white p-6">
-        <body>{children}</body>
-      </div>
+      <body className="min-h-screen bg-[url('/rain.png')] text-white p-6">
+        <Navigation />
+        <div className="ml-24">{children}</div>
+      </body>
     </html>
   )
 }

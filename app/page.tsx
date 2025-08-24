@@ -19,9 +19,7 @@ export default function WeatherApp() {
   const [showMoreConditions, setShowMoreConditions] = useState(false)
 
   return (
-    <div className="max-w-7xl mx-auto flex gap-6">
-      <Navigation />
-
+    <div className="max-h-screen mx-auto flex gap-6">
       {/* Main Content */}
       <div className="flex-1 space-y-6">
         {/* Search Bar */}
