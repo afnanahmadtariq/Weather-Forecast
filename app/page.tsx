@@ -24,15 +24,17 @@ export default function WeatherApp() {
       <div className="flex-1 space-y-6">
         {/* Search Bar */}
         <div className="relative">
+          <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/30"></div>
           <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
           <Input
             placeholder="Search for cities"
-            className="bg-slate-800/50 border-slate-700 pl-12 h-12 text-white placeholder:text-slate-400"
+            className="backdrop-blur-lg bg-white/10 shadow-lg border-white/20 pl-12 h-12 text-white placeholder:text-slate-400"
           />
         </div>
 
         {/* Current Weather */}
-        <div className="bg-slate-800/50 rounded-2xl p-8">
+        <div className="backdrop-blur-lg bg-white/10 shadow-lg rounded-2xl p-8">
+        <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/30"></div>
           <div className="flex items-start justify-between">
             <div>
               <h1 className="text-4xl font-light mb-2">Madrid</h1>
@@ -50,7 +52,8 @@ export default function WeatherApp() {
         </div>
 
         {/* Today's Forecast */}
-        <div className="bg-slate-800/50 rounded-2xl p-6">
+        <div className="backdrop-blur-lg bg-white/10 shadow-lg rounded-2xl p-6">
+        <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/30"></div>
           <h3 className="text-slate-400 text-sm font-medium mb-6 uppercase tracking-wider">Today's Forecast</h3>
           <div className="grid grid-cols-6 gap-4">
             {[
@@ -92,7 +95,8 @@ export default function WeatherApp() {
         </div>
 
         {/* Air Conditions */}
-        <div className="bg-slate-800/50 rounded-2xl p-6">
+        <div className="backdrop-blur-lg bg-white/10 shadow-lg rounded-2xl p-6">
+        <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/30"></div>
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-slate-400 text-sm font-medium uppercase tracking-wider">Air Conditions</h3>
             <Button
@@ -207,7 +211,8 @@ export default function WeatherApp() {
       </div>
 
       {/* Right Sidebar - 7-Day Forecast */}
-      <div className="w-80 bg-slate-800/50 rounded-2xl p-6">
+      <div className="w-80 backdrop-blur-lg bg-white/10 shadow-lg rounded-2xl p-6">
+      <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/30"></div>
         <h3 className="text-slate-400 text-sm font-medium mb-6 uppercase tracking-wider">7-Day Forecast</h3>
         <div className="space-y-4">
           {[
