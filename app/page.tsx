@@ -1,9 +1,8 @@
 "use client"
 
-import { useEffect, useMemo, useState } from "react"
-import { Search } from "lucide-react"
+import { useMemo, useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { SearchBar } from "@/components/search-bar"
 import {
   WiThermometer,
   WiHumidity,
@@ -14,148 +13,13 @@ import {
   WiDayFog,
 } from "weather-icons-react"
 import { formatLocalTime, formatDayName, isNightFromIconCode, mapOwmToIcon } from "@/lib/weather"
-import { toast } from "@/hooks/use-toast"
+import { useWeather } from "@/components/weather-provider"
 
-type OwmWeather = {
-  id: number
-  main: string
-  description: string
-  icon: string
-}
-
-type OwmCurrent = {
-  dt: number
-  sunrise?: number
-  sunset?: number
-  temp: number
-  feels_like: number
-  pressure: number
-  humidity: number
-  uvi?: number
-  clouds?: number
-  visibility?: number
-  wind_speed: number
-  weather: OwmWeather[]
-}
-
-type OwmHourly = {
-  dt: number
-  temp: number
-  pop?: number
-  wind_speed?: number
-  humidity?: number
-  visibility?: number
-  weather: OwmWeather[]
-}
-
-type OwmDaily = {
-  dt: number
-  sunrise?: number
-  sunset?: number
-  temp: { min: number; max: number }
-  pop?: number
-  weather: OwmWeather[]
-}
-
-type OwmOneCall = {
-  timezone_offset: number
-  current: OwmCurrent
-  hourly: OwmHourly[]
-  daily: OwmDaily[]
-}
+import type { OwmOneCall, OwmHourly } from "@/components/weather-provider"
 
 export default function WeatherApp() {
   const [showMoreConditions, setShowMoreConditions] = useState(false)
-
-  // Simple search + coordinates state. Default to Madrid, ES
-  const [query, setQuery] = useState("")
-  const [city, setCity] = useState("Madrid, ES")
-  const [coords, setCoords] = useState<{ lat: number; lon: number }>({ lat: 40.4168, lon: -3.7038 })
-  const [data, setData] = useState<OwmOneCall | null>(null)
-  const [loading, setLoading] = useState(false)
-  
-
-  // On first mount: try cookie, else geolocate, else default
-  useEffect(() => {
-    // Try cookie first
-    try {
-      const raw = document.cookie.split("; ").find((c) => c.startsWith("wf_geo="))?.split("=")[1]
-      if (raw) {
-        const decoded = decodeURIComponent(raw)
-        const parsed = JSON.parse(decoded) as { lat?: number; lon?: number; city?: string }
-        if (typeof parsed.lat === "number" && typeof parsed.lon === "number") {
-          setCoords({ lat: parsed.lat, lon: parsed.lon })
-          if (parsed.city) setCity(parsed.city)
-          return
-        }
-      }
-    } catch {}
-
-    // Fallback to geolocation
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        async (pos) => {
-          const { latitude, longitude } = pos.coords
-          setCoords({ lat: latitude, lon: longitude })
-          try {
-            // Reverse geocode for city label (best-effort) - API will also set cookie
-            const res = await fetch(`/api/geocode?lat=${latitude}&lon=${longitude}&limit=1`)
-            if (res.ok) {
-              const [place] = (await res.json()) as Array<{ name: string; state?: string; country?: string }>
-              if (place) setCity(`${place.name}${place.state ? ", " + place.state : ""}${place.country ? ", " + place.country : ""}`)
-            }
-          } catch {}
-        },
-        () => {
-          // Non-blocking toast if denied; keep defaults
-          toast({ title: "Location permission denied", description: "Using Madrid by default." })
-        },
-        { enableHighAccuracy: true, timeout: 8000, maximumAge: 60000 }
-      )
-    }
-  }, [])
-
-  useEffect(() => {
-    const fetchWeather = async () => {
-      try {
-        setLoading(true)
-        const url = `/api/weather?lat=${coords.lat}&lon=${coords.lon}&units=metric`
-        const res = await fetch(url)
-        if (!res.ok) throw new Error(`Weather fetch failed: ${res.status}`)
-        const json: OwmOneCall = await res.json()
-        setData(json)
-      } catch (e: any) {
-        toast({ title: "Failed to load weather", description: e?.message ?? "Unknown error" })
-        setData(null)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchWeather()
-  }, [coords.lat, coords.lon])
-
-  async function handleSearch() {
-    const q = query.trim()
-    if (!q) return
-    try {
-      setLoading(true)
-      const res = await fetch(`/api/geocode?q=${encodeURIComponent(q)}&limit=1`)
-      if (!res.ok) throw new Error(`Geocode failed: ${res.status}`)
-      const arr: Array<{ name: string; country?: string; state?: string; lat: number; lon: number }> = await res.json()
-      if (!arr?.length) {
-  toast({ title: "No matching city", description: "Try a different search term." })
-        return
-      }
-      const top = arr[0]
-      setCity(`${top.name}${top.state ? ", " + top.state : ""}${top.country ? ", " + top.country : ""}`)
-      setCoords({ lat: top.lat, lon: top.lon })
-  // Cookie is set by API; nothing else to do here
-    } catch (e: any) {
-      toast({ title: "Search error", description: e?.message ?? "Unknown error" })
-    } finally {
-      setLoading(false)
-    }
-  }
+  const { city, data, loading } = useWeather()
 
   const chanceOfRainToday = useMemo(() => {
     if (!data?.hourly?.length) return 0
@@ -184,20 +48,8 @@ export default function WeatherApp() {
     <div className="mx-auto flex gap-6">
       {/* Main Content */}
       <div className="flex-1 space-y-6">
-        {/* Search Bar */}
-        <div className="relative">
-          <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/5"></div>
-          <Search className="absolute left-4 top-1/2 z-10 transform -translate-y-1/2 w-5 h-5 text-white/[0.6]" />
-          <div className="flex gap-2">
-            <Input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-              placeholder="Search for cities"
-              className="flex-1 backdrop-blur-xs bg-white/5 shadow-lg border-white/20 pl-12 h-12 text-white placeholder:text-white/[0.8]"
-            />
-          </div>
-        </div>
+  {/* Search Bar */}
+  <SearchBar />
 
         {/* Current Weather */}
         <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-8">

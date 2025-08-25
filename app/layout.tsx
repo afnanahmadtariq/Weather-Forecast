@@ -4,6 +4,7 @@ import { GeistMono } from 'geist/font/mono'
 import './globals.css'
 import { Navigation } from '@/components/navigation'
 import { Toaster } from '@/components/ui/toaster'
+import { WeatherProvider } from '@/components/weather-provider'
 
 export const metadata: Metadata = {
   title: 'Weather Forecast',
@@ -28,9 +29,11 @@ export default function RootLayout({
         `}</style>
       </head>
     <body className="min-h-screen bg-[url('/rain.png')] text-white p-6">
-        <Navigation />
-        <div className="ml-[5.5rem]">{children}</div>
-  <Toaster />
+        <WeatherProvider>
+          <Navigation />
+          <div className="ml-[5.5rem]">{children}</div>
+          <Toaster />
+        </WeatherProvider>
     </body>
     </html>
   )
