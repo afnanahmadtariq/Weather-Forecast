@@ -28,8 +28,8 @@ export default function SettingsPage() {
       {/* Main Content */}
       <div className="flex-1 space-y-6 mr-86">
         {/* General Section */}
-        <div className="backdrop-blur-lg bg-white/10 shadow-lg rounded-2xl p-6">
-          <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/30"></div>
+        <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6">
+          <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/5"></div>
           <h2 className="text-xl font-semibold mb-4">General</h2>
 
           <div className="space-y-4">
@@ -73,8 +73,8 @@ export default function SettingsPage() {
         </div>
 
         {/* Notifications Section */}
-        <div className="backdrop-blur-lg bg-white/10 shadow-lg rounded-2xl p-6">
-          <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/30"></div>
+        <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6">
+          <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/5"></div>
           <h2 className="text-xl font-semibold mb-4">Notifications</h2>
 
           <div className="flex items-center justify-between p-4 bg-white/10 rounded-xl">
@@ -98,8 +98,8 @@ export default function SettingsPage() {
         </div> 
 
         {/* Units Section */}
-        <div className="backdrop-blur-lg bg-white/10 shadow-lg rounded-2xl p-6 space-y-6">
-          <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/30"></div>
+        <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6 space-y-6">
+          <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/5"></div>
           <h2 className="text-xl font-semibold">Units</h2>
 
           {/* Temperature */}
@@ -228,8 +228,8 @@ export default function SettingsPage() {
 
       {/* Right Sidebar */}
       <div className="w-80 space-y-6 fixed right-6">
-        <div className="backdrop-blur-lg bg-white/10 shadow-lg rounded-2xl p-6">
-          <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/30"></div>
+        <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6">
+          <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/5"></div>
           <h2 className="text-xl font-semibold mb-4">Advanced</h2>
 
           <div className="space-y-4">
@@ -249,8 +249,8 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        <div className="backdrop-blur-lg bg-white/10 shadow-lg rounded-2xl p-6">
-          <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/30"></div>
+        <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6">
+          <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/5"></div>
           <h2 className="text-xl font-semibold mb-4">Never forget your umbrella!</h2>
 
           <p className="text-sm text-white/60 mb-6">
