@@ -48,15 +48,15 @@ export default function CitiesPage() {
               key={city.name}
               onClick={() => setSelectedCity(city.name)}
               className={`backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6 cursor-pointer transition-all ${
-                selectedCity === city.name ? "ring-2 ring-blue-500" : "hover:bg-slate-800/70"
+                selectedCity === city.name ? "bg-white/20" : "hover:bg-white/10"
               }`}
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <img src={city.icon} alt={city.condition} className="w-16 h-auto" />
                   <div>
-                    <h3 className="text-2xl font-light mb-1">{city.name}</h3>
-                    <p className="text-slate-400 text-sm">{city.time}</p>
+                    <h3 className="text-2xl font-base mb-1">{city.name}</h3>
+                    <p className="text-white/60 text-sm">{city.time}</p>
                   </div>
                 </div>
                 <div className="text-4xl font-light">{city.temp}</div>
@@ -69,34 +69,32 @@ export default function CitiesPage() {
       {/* Right Sidebar - Selected City Details */}
       <div className="w-80 space-y-6">
         {/* Current Weather for Selected City */}
-        <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6">
-          <div className="text-center">
-            <h2 className="text-3xl font-light mb-2">{selectedCityData.name}</h2>
-            <p className="text-slate-400 mb-6">Chance of rain: 0%</p>
-            <img
-              src={selectedCityData.icon || "/placeholder.svg"}
-              alt={selectedCityData.condition}
-              className="w-24 h-24 mx-auto mb-4"
-            />
-            <div className="text-6xl font-light">{selectedCityData.temp}</div>
+        <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6 flex flex-row justify-between items-center">
+          <div className="text-left">
+            <h2 className="text-4xl font-base mb-2">{selectedCityData.name}</h2>
+            <p className="text-white/60 mb-4 text-sm">Chance of rain: 0%</p>
+            <div className="text-5xl font-base">{selectedCityData.temp}</div>
           </div>
+          <img
+            src={selectedCityData.icon}
+            alt={selectedCityData.condition}
+            className="w-24 h-24"
+          />
         </div>
 
         {/* Today's Forecast */}
         <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6">
-          <h3 className="text-slate-400 text-sm font-medium mb-6 uppercase tracking-wider">Today's Forecast</h3>
-          <div className="space-y-4">
+          <h3 className="text-white text-sm font-medium mb-6 uppercase tracking-wider">Today's Forecast</h3>
+          <div className="flex flex-row justify-center items-stretch divide-x divide-white/20">
             {[
               { time: "6:00 AM", temp: "25°", icon: "/weather/cloudy.png" },
-              { time: "9:00 AM", temp: "28°", icon: "/weather/cloudy-with-sunny.png" },
+              { time: "9:00 AM", temp: "28°", icon: "/weather/partly-cloudy.png" },
               { time: "12:00 PM", temp: "33°", icon: "/weather/sunny.png" },
             ].map((item, index) => (
-              <div key={index} className="flex items-center justify-between">
-                <span className="text-slate-400 text-sm">{item.time}</span>
-                <div className="flex items-center gap-3">
-                  <img src={item.icon} alt="Weather" className="w-8 h-auto" />
-                  <span className="text-white font-medium">{item.temp}</span>
-                </div>
+              <div key={index} className="flex flex-col items-center justify-between gap-4 px-6">
+                <span className="text-white/60 text-sm whitespace-nowrap">{item.time}</span>
+                <img src={item.icon} alt="Weather" className="w-16 h-auto" />
+                <span className="text-white font-medium">{item.temp}</span>
               </div>
             ))}
           </div>
@@ -104,7 +102,7 @@ export default function CitiesPage() {
 
         {/* 3-Day Forecast */}
         <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6">
-          <h3 className="text-slate-400 text-sm font-medium mb-6 uppercase tracking-wider">3-Day Forecast</h3>
+          <h3 className="text-white text-sm font-medium mb-6 uppercase tracking-wider">3-Day Forecast</h3>
           <div className="space-y-4">
             {[
               {
@@ -131,13 +129,13 @@ export default function CitiesPage() {
             ].map((item, index) => (
               <div key={index} className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 text-slate-400 text-sm">{item.day}</div>
+                  <div className="w-12 text-white/60 text-sm">{item.day}</div>
                   <img src={item.icon} alt={item.condition} className="w-8 h-auto" />
                   <div className="text-white">{item.condition}</div>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
                   <span className="text-white">{item.high}</span>
-                  <span className="text-slate-400">/{item.low}</span>
+                  <span className="text-white/60">/{item.low}</span>
                 </div>
               </div>
             ))}

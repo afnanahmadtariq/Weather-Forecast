@@ -30,7 +30,7 @@ export function SearchBar({ className, placeholder = "Search for cities" }: Prop
           onKeyDown={(e) => e.key === "Enter" && onSearch()}
           placeholder={placeholder}
           disabled={loading}
-          className="flex-1 backdrop-blur-xs bg-white/5 shadow-lg border-white/20 pl-12 h-12 text-white placeholder:text-white/[0.8]"
+          className="flex-1 backdrop-blur-xs bg-white/5 shadow-lg border-white/20 pl-12 h-12 text-white placeholder:text-white/[0.8] focus:outline-none focus:ring-0 focus-visible:ring-0"
         />
       </div>
     </div>

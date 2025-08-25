@@ -119,14 +119,14 @@ export default function WeatherApp() {
             {showMoreConditions ? (
               // Expanded view with 8 cards
               <>
-                <div className="bg-slate-700/30 rounded-xl p-4">
+                <div className="backdrop-blur-xs bg-white/5 shadow-lg  rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-2">
                     <WiDayHaze size={20} color="#94a3b8" />
                     <p className="text-white/[0.6] text-sm uppercase tracking-wide">UV Index</p>
                   </div>
                   <p className="text-3xl font-light">{loading ? <span className="inline-block w-10 h-8 bg-white/10 rounded animate-pulse" /> : (current?.uvi ?? "-")}</p>
                 </div>
-                <div className="bg-slate-700/30 rounded-xl p-4">
+                <div className="backdrop-blur-xs bg-white/5 shadow-lg  rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-2">
                     <WiStrongWind size={20} color="#94a3b8" />
                     <p className="text-white/[0.6] text-sm uppercase tracking-wide">Wind</p>
@@ -155,14 +155,14 @@ export default function WeatherApp() {
                     )}
                   </p>
                 </div>
-                <div className="bg-slate-700/30 rounded-xl p-4">
+                <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-2">
                     <WiHumidity size={20} color="#94a3b8" />
                     <p className="text-white/[0.6] text-sm uppercase tracking-wide">Humidity</p>
                   </div>
                   <p className="text-3xl font-light">{loading ? <span className="inline-block w-14 h-8 bg-white/10 rounded animate-pulse" /> : (current ? `${current.humidity}%` : "-")}</p>
                 </div>
-                <div className="bg-slate-700/30 rounded-xl p-4">
+                <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-2">
                     <WiDayFog size={20} color="#94a3b8" />
                     <p className="text-white/[0.6] text-sm uppercase tracking-wide">Visibility</p>
@@ -185,21 +185,21 @@ export default function WeatherApp() {
                     )}
                   </p>
                 </div>
-                <div className="bg-slate-700/30 rounded-xl p-4">
+                <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-2">
                     <WiThermometer size={20} color="#94a3b8" />
                     <p className="text-white/[0.6] text-sm uppercase tracking-wide">Feels Like</p>
                   </div>
                   <p className="text-3xl font-light">{loading ? <span className="inline-block w-12 h-8 bg-white/10 rounded animate-pulse" /> : (current ? `${Math.round(current.feels_like)}°` : "-")}</p>
                 </div>
-                <div className="bg-slate-700/30 rounded-xl p-4">
+                <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-2">
                     <WiHumidity size={20} color="#94a3b8" />
                     <p className="text-white/[0.6] text-sm uppercase tracking-wide">Chance of Rain</p>
                   </div>
                   <p className="text-3xl font-light">{loading ? <span className="inline-block w-10 h-8 bg-white/10 rounded animate-pulse" /> : `${chanceOfRainToday}%`}</p>
                 </div>
-                <div className="bg-slate-700/30 rounded-xl p-4">
+                <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-2">
                     <WiBarometer size={20} color="#94a3b8" />
                     <p className="text-white/[0.6] text-sm uppercase tracking-wide">Pressure</p>
@@ -234,7 +234,7 @@ export default function WeatherApp() {
                     )}
                   </p>
                 </div>
-                <div className="bg-slate-700/30 rounded-xl p-4">
+                <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-2">
                     <WiSunset size={20} color="#94a3b8" />
                     <p className="text-white/[0.6] text-sm uppercase tracking-wide">Sunset</p>

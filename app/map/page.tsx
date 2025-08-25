@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { WiDaySunny, WiRain, WiDayCloudyHigh } from "weather-icons-react"
 import { Plus, Minus, Navigation } from "lucide-react"
+import { FaLocationDot } from "react-icons/fa6"
 import { SearchBar } from "@/components/search-bar"
 
 export default function MapPage() {
@@ -73,7 +74,8 @@ export default function MapPage() {
           {/* Weather Cards on Map */}
           {cities.map((city) => (
             <div key={city.name} className="absolute" style={city.position}>
-              <div className="bg-slate-800/90 backdrop-blur-sm rounded-lg p-4 min-w-[120px] shadow-lg">
+              <div className="backdrop-blur-sm bg-white/10 shadow-lg rounded-lg p-4 min-w-[120px]">
+                <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/10"></div>
                 <div className="text-center">
                   <h3 className="font-semibold text-white mb-2">{city.name}</h3>
                   <div className="flex items-center justify-center mb-2">
@@ -81,29 +83,31 @@ export default function MapPage() {
                   </div>
                   <div className="text-2xl font-bold text-white">{city.temp}°</div>
                   {city.name === "Madrid" && (
-                    <button className="mt-2 px-3 py-1 bg-slate-700 hover:bg-slate-600 rounded text-sm text-white transition-colors">
+                    <button className="mt-2 px-3 py-1 bg-blue-500 hover:bg-blue-600 rounded text-sm text-white transition-colors">
                       See detail
                     </button>
                   )}
                 </div>
               </div>
-              {/* Location dot */}
-              <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-2 h-2 bg-slate-800 rounded-full"></div>
+              {/* Location icon */}
+              <div className="absolute top-full left-1/2 -translate-x-1/2">
+                <FaLocationDot className="text-red-600" size={14} />
+              </div>
             </div>
           ))}
 
           {/* Map Controls */}
           <div className="absolute right-6 top-1/2 transform -translate-y-1/2 flex flex-col space-y-2">
-            <button className="w-10 h-10 bg-slate-800/90 backdrop-blur-sm rounded-lg flex items-center justify-center text-white hover:bg-slate-700 transition-colors">
+            <button className="w-10 h-10 backdrop-blur-sm bg-white/20 shadow-lg rounded-lg flex items-center justify-center text-white hover:bg-blue-700 transition-colors">
               <Plus size={20} />
             </button>
-            <button className="w-10 h-10 bg-slate-800/90 backdrop-blur-sm rounded-lg flex items-center justify-center text-white hover:bg-slate-700 transition-colors">
+            <button className="w-10 h-10 backdrop-blur-sm bg-white/20 shadow-lg rounded-lg flex items-center justify-center text-white hover:bg-blue-700 transition-colors">
               <Minus size={20} />
             </button>
           </div>
 
           <div className="absolute right-6 bottom-6">
-            <button className="w-10 h-10 bg-slate-800/90 backdrop-blur-sm rounded-lg flex items-center justify-center text-white hover:bg-slate-700 transition-colors">
+            <button className="w-10 h-10 backdrop-blur-sm bg-white/20 shadow-lg rounded-lg flex items-center justify-center text-white hover:bg-blue-700 transition-colors">
               <Navigation size={20} />
             </button>
           </div>
@@ -129,12 +133,12 @@ export default function MapPage() {
                 <city.icon size={24} color="#fbbf24" />
                 <div>
                   <div className="font-semibold text-white">{city.name}</div>
-                  <div className="text-sm text-slate-400">{city.time}</div>
+                  <div className="text-sm text-white/60">{city.time}</div>
                 </div>
               </div>
               <div className="text-right">
                 <div className="text-2xl font-bold text-white">{city.temp}°</div>
-                <div className="text-sm text-slate-400">{city.condition}</div>
+                <div className="text-sm text-white/60">{city.condition}</div>
               </div>
             </div>
           ))}
