@@ -3,6 +3,7 @@ import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import './globals.css'
 import { Navigation } from '@/components/navigation'
+import { Toaster } from '@/components/ui/toaster'
 
 export const metadata: Metadata = {
   title: 'Weather Forecast',
@@ -28,6 +29,7 @@ export default function RootLayout({
     <body className="min-h-screen bg-[url('/rain.png')] text-white p-6">
         <Navigation />
         <div className="ml-[5.5rem]">{children}</div>
+  <Toaster />
     </body>
     </html>
   )
