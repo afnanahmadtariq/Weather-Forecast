@@ -19,7 +19,7 @@ import type { OwmOneCall, OwmHourly } from "@/components/weather-provider"
 
 export default function WeatherApp() {
   const [showMoreConditions, setShowMoreConditions] = useState(false)
-  const { city, data, loading } = useWeather()
+  const { city, data, loading, units, timeFormat12h } = useWeather()
 
   const chanceOfRainToday = useMemo(() => {
     if (!data?.hourly?.length) return 0
@@ -89,9 +89,9 @@ export default function WeatherApp() {
               const w = h.weather?.[0]
               const night = isNightFromIconCode(w?.icon)
               const icon = w ? mapOwmToIcon(w.id, night) : "/weather/windy.png"
-              return (
+        return (
                 <div key={idx} className="text-center">
-                  <p className="text-white/[0.6] text-sm mb-4">{formatLocalTime(h.dt, tz)}</p>
+          <p className="text-white/[0.6] text-sm mb-4">{formatLocalTime(h.dt, tz, { hour12: timeFormat12h })}</p>
                   <div className="flex justify-center mb-4">
                     <img src={icon} alt={w?.description ?? "Forecast"} className="w-12 h-auto" />
                   </div>
@@ -131,7 +131,29 @@ export default function WeatherApp() {
                     <WiStrongWind size={20} color="#94a3b8" />
                     <p className="text-white/[0.6] text-sm uppercase tracking-wide">Wind</p>
                   </div>
-                  <p className="text-3xl font-light">{loading ? <span className="inline-block w-20 h-8 bg-white/10 rounded animate-pulse" /> : (current ? `${Math.round(current.wind_speed * 3.6)} km/h` : "-")}</p>
+                  <p className="text-3xl font-light">
+                    {loading ? (
+                      <span className="inline-block w-20 h-8 bg-white/10 rounded animate-pulse" />
+                    ) : current ? (
+                      (() => {
+                        // Normalize to m/s from OWM (metric: m/s, imperial: mph)
+                        const baseMs = data ? (units.temperature === "fahrenheit" ? (current.wind_speed ?? 0) * 0.44704 : (current.wind_speed ?? 0)) : 0
+                        const { windSpeed } = units
+                        if (windSpeed === "kmh") {
+                          const v = Math.round(baseMs * 3.6)
+                          return `${v} km/h`
+                        } else if (windSpeed === "ms") {
+                          const v = Math.round(baseMs)
+                          return `${v} m/s`
+                        } else {
+                          const v = Math.round(baseMs * 1.943844)
+                          return `${v} knots`
+                        }
+                      })()
+                    ) : (
+                      "-"
+                    )}
+                  </p>
                 </div>
                 <div className="bg-slate-700/30 rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-2">
@@ -145,7 +167,23 @@ export default function WeatherApp() {
                     <WiDayFog size={20} color="#94a3b8" />
                     <p className="text-white/[0.6] text-sm uppercase tracking-wide">Visibility</p>
                   </div>
-                  <p className="text-3xl font-light">{loading ? <span className="inline-block w-14 h-8 bg-white/10 rounded animate-pulse" /> : (current?.visibility != null ? `${Math.round(current.visibility / 1000)} km` : "-")}</p>
+                  <p className="text-3xl font-light">
+                    {loading ? (
+                      <span className="inline-block w-14 h-8 bg-white/10 rounded animate-pulse" />
+                    ) : current?.visibility != null ? (
+                      (() => {
+                        const meters = current.visibility
+                        if (units.distance === "kilometers") {
+                          return `${Math.round(meters / 1000)} km`
+                        } else {
+                          const miles = meters / 1609.344
+                          return `${Math.round(miles)} mi`
+                        }
+                      })()
+                    ) : (
+                      "-"
+                    )}
+                  </p>
                 </div>
                 <div className="bg-slate-700/30 rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-2">
@@ -166,14 +204,42 @@ export default function WeatherApp() {
                     <WiBarometer size={20} color="#94a3b8" />
                     <p className="text-white/[0.6] text-sm uppercase tracking-wide">Pressure</p>
                   </div>
-                  <p className="text-3xl font-light">{loading ? <span className="inline-block w-16 h-8 bg-white/10 rounded animate-pulse" /> : (current ? `${current.pressure} hPa` : "-")}</p>
+                  <p className="text-3xl font-light">
+                    {loading ? (
+                      <span className="inline-block w-16 h-8 bg-white/10 rounded animate-pulse" />
+                    ) : current ? (
+                      (() => {
+                        const hpa = current.pressure ?? 0
+                        switch (units.pressure) {
+                          case "hpa": {
+                            return `${hpa} hPa`
+                          }
+                          case "kpa": {
+                            const kpa = (hpa / 10).toFixed(1)
+                            return `${kpa} kPa`
+                          }
+                          case "mm": {
+                            const mmHg = Math.round(hpa * 0.750061683)
+                            return `${mmHg} mmHg`
+                          }
+                          case "inches":
+                          default: {
+                            const inHg = (hpa / 33.8638866667).toFixed(2)
+                            return `${inHg} inHg`
+                          }
+                        }
+                      })()
+                    ) : (
+                      "-"
+                    )}
+                  </p>
                 </div>
                 <div className="bg-slate-700/30 rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-2">
                     <WiSunset size={20} color="#94a3b8" />
                     <p className="text-white/[0.6] text-sm uppercase tracking-wide">Sunset</p>
                   </div>
-                  <p className="text-3xl font-light">{loading ? <span className="inline-block w-16 h-8 bg-white/10 rounded animate-pulse" /> : (data && (data.daily?.[0]?.sunset || current?.sunset) ? formatLocalTime((data.daily?.[0]?.sunset || current?.sunset)!, tz, { hour: "2-digit", minute: "2-digit" }) : "-")}</p>
+                  <p className="text-3xl font-light">{loading ? <span className="inline-block w-16 h-8 bg-white/10 rounded animate-pulse" /> : (data && (data.daily?.[0]?.sunset || current?.sunset) ? formatLocalTime((data.daily?.[0]?.sunset || current?.sunset)!, tz, { hour: "2-digit", minute: "2-digit", hour12: timeFormat12h }) : "-")}</p>
                 </div>
               </>
             ) : (
@@ -200,7 +266,15 @@ export default function WeatherApp() {
                     <WiStrongWind size={20} color="#94a3b8" />
                     <div>
                       <p className="text-white/[0.6] text-sm">Wind</p>
-            <p className="text-2xl font-light">{current ? `${Math.round(current.wind_speed * 3.6)} km/h` : "-"}</p>
+            <p className="text-2xl font-light">{
+              current ? (() => {
+                const baseMs = units.temperature === "fahrenheit" ? (current.wind_speed ?? 0) * 0.44704 : (current.wind_speed ?? 0)
+                const { windSpeed } = units
+                if (windSpeed === "kmh") return `${Math.round(baseMs * 3.6)} km/h`
+                if (windSpeed === "ms") return `${Math.round(baseMs)} m/s`
+                return `${Math.round(baseMs * 1.943844)} knots`
+              })() : "-"
+            }</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">

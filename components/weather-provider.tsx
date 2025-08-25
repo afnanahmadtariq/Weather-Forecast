@@ -54,11 +54,28 @@ export type OwmOneCall = {
 
 type Coords = { lat: number; lon: number }
 
+export type Units = {
+  temperature: "celsius" | "fahrenheit"
+  windSpeed: "kmh" | "ms" | "knots"
+  pressure: "hpa" | "inches" | "kpa" | "mm"
+  precipitation: "millimeters" | "inches"
+  distance: "kilometers" | "miles"
+}
+
 type WeatherContextValue = {
   city: string
   coords: Coords
   data: OwmOneCall | null
   loading: boolean
+  // User settings
+  units: Units
+  notificationsEnabled: boolean
+  timeFormat12h: boolean
+  locationEnabled: boolean
+  updateUnits: (patch: Partial<Units>) => void
+  setNotificationsEnabled: (v: boolean) => void
+  setTimeFormat12h: (v: boolean) => void
+  setLocationEnabled: (v: boolean) => void
   // Actions
   searchCity: (q: string) => Promise<boolean>
   setCoords: (coords: Coords, label?: string) => void
@@ -71,6 +88,17 @@ export function WeatherProvider({ children }: { children: React.ReactNode }) {
   const [coords, setCoordsState] = useState<Coords>({ lat: 40.4168, lon: -3.7038 })
   const [data, setData] = useState<OwmOneCall | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
+  // Settings state
+  const [units, setUnits] = useState<Units>({
+    temperature: "celsius",
+    windSpeed: "kmh",
+    pressure: "mm",
+    precipitation: "millimeters",
+    distance: "kilometers",
+  })
+  const [notificationsEnabled, setNotificationsEnabled] = useState<boolean>(true)
+  const [timeFormat12h, setTimeFormat12h] = useState<boolean>(true)
+  const [locationEnabled, setLocationEnabled] = useState<boolean>(true)
 
   // Helper to set coords (and optional city label) and persist cookie via API where applicable
   const setCoords = useCallback((c: Coords, label?: string) => {
@@ -80,6 +108,25 @@ export function WeatherProvider({ children }: { children: React.ReactNode }) {
 
   // Initial load: try cookie, else geolocate, else defaults
   useEffect(() => {
+    // Hydrate settings from localStorage
+    try {
+      const raw = localStorage.getItem("wf_settings")
+      if (raw) {
+        const parsed = JSON.parse(raw) as Partial<{
+          units: Partial<Units>
+          notificationsEnabled: boolean
+          timeFormat12h: boolean
+          locationEnabled: boolean
+        }>
+        if (parsed.units) {
+          setUnits((prev) => ({ ...prev, ...parsed.units }))
+        }
+        if (typeof parsed.notificationsEnabled === "boolean") setNotificationsEnabled(parsed.notificationsEnabled)
+        if (typeof parsed.timeFormat12h === "boolean") setTimeFormat12h(parsed.timeFormat12h)
+        if (typeof parsed.locationEnabled === "boolean") setLocationEnabled(parsed.locationEnabled)
+      }
+    } catch {}
+
     try {
       const raw = document.cookie.split("; ").find((c) => c.startsWith("wf_geo="))?.split("=")[1]
       if (raw) {
@@ -115,13 +162,24 @@ export function WeatherProvider({ children }: { children: React.ReactNode }) {
     }
   }, [])
 
-  // Fetch weather whenever coords change
+  // Persist settings whenever they change
+  useEffect(() => {
+    try {
+      const payload = JSON.stringify({ units, notificationsEnabled, timeFormat12h, locationEnabled })
+      localStorage.setItem("wf_settings", payload)
+    } catch {}
+  }, [units, notificationsEnabled, timeFormat12h, locationEnabled])
+
+  // Map temperature unit to OWM units param
+  const owmUnits = units.temperature === "fahrenheit" ? "imperial" : "metric"
+
+  // Fetch weather whenever coords or units change
   useEffect(() => {
     let aborted = false
     const run = async () => {
       try {
         setLoading(true)
-        const url = `/api/weather?lat=${coords.lat}&lon=${coords.lon}&units=metric`
+        const url = `/api/weather?lat=${coords.lat}&lon=${coords.lon}&units=${owmUnits}`
         const res = await fetch(url)
         if (!res.ok) throw new Error(`Weather fetch failed: ${res.status}`)
         const json = (await res.json()) as OwmOneCall
@@ -139,7 +197,7 @@ export function WeatherProvider({ children }: { children: React.ReactNode }) {
     return () => {
       aborted = true
     }
-  }, [coords.lat, coords.lon])
+  }, [coords.lat, coords.lon, owmUnits])
 
   // Search city and update coords + city, cookie is set by API
   const searchCity = useCallback(async (q: string) => {
@@ -168,8 +226,25 @@ export function WeatherProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   const value = useMemo<WeatherContextValue>(
-    () => ({ city, coords, data, loading, searchCity, setCoords }),
-    [city, coords, data, loading, searchCity, setCoords]
+    () => ({
+      city,
+      coords,
+      data,
+      loading,
+      // settings
+      units,
+      notificationsEnabled,
+      timeFormat12h,
+      locationEnabled,
+      updateUnits: (patch: Partial<Units>) => setUnits((prev) => ({ ...prev, ...patch })),
+      setNotificationsEnabled,
+      setTimeFormat12h,
+      setLocationEnabled,
+      // actions
+      searchCity,
+      setCoords,
+    }),
+    [city, coords, data, loading, units, notificationsEnabled, timeFormat12h, locationEnabled, searchCity, setCoords]
   )
 
   return <WeatherContext.Provider value={value}>{children}</WeatherContext.Provider>

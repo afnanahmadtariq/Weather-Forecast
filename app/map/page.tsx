@@ -118,12 +118,12 @@ export default function MapPage() {
       </div>
 
       {/* Right Sidebar - Cities List */}
-      <div className="w-80 bg-slate-800/50 rounded-2xl p-6">
+      <div className="w-80 backdrop-blur-xs bg-white/5 shadow-lg  rounded-2xl p-6">
         <div className="space-y-4">
           {cities.map((city) => (
             <div
               key={city.name}
-              className="bg-slate-700/50 rounded-lg p-4 flex items-center justify-between hover:bg-slate-600/50 transition-colors cursor-pointer"
+              className="bg-white/10 rounded-lg p-4 flex items-center justify-between hover:bg-white/20 transition-colors cursor-pointer"
             >
               <div className="flex items-center space-x-3">
                 <city.icon size={24} color="#fbbf24" />

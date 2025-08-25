@@ -4,22 +4,22 @@ import { useState } from "react"
 import { Search } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Navigation } from "@/components/navigation"
+import { useWeather } from "@/components/weather-provider"
 
 export default function SettingsPage() {
-  const [units, setUnits] = useState({
-    temperature: "celsius",
-    windSpeed: "kmh",
-    pressure: "mm",
-    precipitation: "millimeters",
-    distance: "kilometers",
-  })
+  const {
+    units,
+    updateUnits,
+    notificationsEnabled,
+    setNotificationsEnabled,
+    timeFormat12h,
+    setTimeFormat12h,
+    locationEnabled,
+    setLocationEnabled,
+  } = useWeather()
 
-  const [notifications, setNotifications] = useState(true)
-  const [twelveHourTime, setTwelveHourTime] = useState(true)
-  const [location, setLocation] = useState(true)
-
-  const updateUnit = (category: string, value: string) => {
-    setUnits((prev) => ({ ...prev, [category]: value }))
+  const updateUnit = (category: keyof typeof units, value: any) => {
+    updateUnits({ [category]: value } as any)
   }
 
   return (
@@ -27,6 +27,76 @@ export default function SettingsPage() {
 
       {/* Main Content */}
       <div className="flex-1 space-y-6">
+        {/* General Section */}
+        <div className="backdrop-blur-lg bg-white/10 shadow-lg rounded-2xl p-6">
+          <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/30"></div>
+          <h2 className="text-xl font-semibold mb-4">General</h2>
+
+          <div className="space-y-4">
+            <div className="flex items-center justify-between p-4 bg-white/10 rounded-xl">
+              <div>
+                <h3 className="font-medium">12-Hour Time</h3>
+              </div>
+              <button
+                onClick={() => setTimeFormat12h(!timeFormat12h)}
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors cursor-pointer ${
+                  timeFormat12h ? "bg-blue-500" : "bg-gray-500"
+                }`}
+              >
+                <span
+                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                    timeFormat12h ? "translate-x-6" : "translate-x-1"
+                  }`}
+                />
+              </button>
+            </div>
+
+            <div className="flex items-center justify-between p-4 bg-white/10 rounded-xl">
+              <div>
+                <h3 className="font-medium">Location</h3>
+                <p className="text-sm text-white/60">Get weather of your location</p>
+              </div>
+              <button
+                onClick={() => setLocationEnabled(!locationEnabled)}
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors cursor-pointer ${
+                  locationEnabled ? "bg-blue-500" : "bg-gray-500"
+                }`}
+              >
+                <span
+                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                    locationEnabled ? "translate-x-6" : "translate-x-1"
+                  }`}
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Notifications Section */}
+        <div className="backdrop-blur-lg bg-white/10 shadow-lg rounded-2xl p-6">
+          <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/30"></div>
+          <h2 className="text-xl font-semibold mb-4">Notifications</h2>
+
+          <div className="flex items-center justify-between p-4 bg-white/10 rounded-xl">
+            <div>
+              <h3 className="font-medium">Notifications</h3>
+              <p className="text-sm text-white/60">Be aware of the weather</p>
+            </div>
+            <button
+              onClick={() => setNotificationsEnabled(!notificationsEnabled)}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors cursor-pointer ${
+                notificationsEnabled ? "bg-blue-500" : "bg-gray-500"
+              }`}
+            >
+              <span
+                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                  notificationsEnabled ? "translate-x-6" : "translate-x-1"
+                }`}
+              />
+            </button>
+          </div>
+        </div> 
+
         {/* Units Section */}
         <div className="backdrop-blur-lg bg-white/10 shadow-lg rounded-2xl p-6 space-y-6">
           <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/30"></div>
@@ -153,76 +223,7 @@ export default function SettingsPage() {
             </div>
           </div>
         </div>
-
-        {/* Notifications Section */}
-        <div className="backdrop-blur-lg bg-white/10 shadow-lg rounded-2xl p-6">
-          <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/30"></div>
-          <h2 className="text-xl font-semibold mb-4">Notifications</h2>
-
-          <div className="flex items-center justify-between p-4 bg-slate-700/30 rounded-xl">
-            <div>
-              <h3 className="font-medium">Notifications</h3>
-              <p className="text-sm text-white/60">Be aware of the weather</p>
-            </div>
-            <button
-              onClick={() => setNotifications(!notifications)}
-              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors cursor-pointer ${
-                notifications ? "bg-blue-500" : "bg-blue-500"
-              }`}
-            >
-              <span
-                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                  notifications ? "translate-x-6" : "translate-x-1"
-                }`}
-              />
-            </button>
-          </div>
-        </div>
-
-        {/* General Section */}
-        <div className="backdrop-blur-lg bg-white/10 shadow-lg rounded-2xl p-6">
-          <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/30"></div>
-          <h2 className="text-xl font-semibold mb-4">General</h2>
-
-          <div className="space-y-4">
-            <div className="flex items-center justify-between p-4 bg-slate-700/30 rounded-xl">
-              <div>
-                <h3 className="font-medium">12-Hour Time</h3>
-              </div>
-              <button
-                onClick={() => setTwelveHourTime(!twelveHourTime)}
-                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors cursor-pointer ${
-                  twelveHourTime ? "bg-blue-500" : "bg-blue-500"
-                }`}
-              >
-                <span
-                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                    twelveHourTime ? "translate-x-6" : "translate-x-1"
-                  }`}
-                />
-              </button>
-            </div>
-
-            <div className="flex items-center justify-between p-4 bg-slate-700/30 rounded-xl">
-              <div>
-                <h3 className="font-medium">Location</h3>
-                <p className="text-sm text-white/60">Get weather of your location</p>
-              </div>
-              <button
-                onClick={() => setLocation(!location)}
-                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors cursor-pointer ${
-                  location ? "bg-blue-500" : "bg-blue-500"
-                }`}
-              >
-                <span
-                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                    location ? "translate-x-6" : "translate-x-1"
-                  }`}
-                />
-              </button>
-            </div>
-          </div>
-        </div>
+               
       </div>
 
       {/* Right Sidebar */}
