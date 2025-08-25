@@ -28,6 +28,48 @@ export default function CitiesPage() {
       condition: "storm",
       icon: "/weather/snow.png",
     },
+    {
+      name: "Madrid",
+      temp: "31°",
+      time: "10:23",
+      condition: "sunny",
+      icon: "/weather/sunny.png",
+    },
+    {
+      name: "Vienna",
+      temp: "27°",
+      time: "11:23",
+      condition: "rainy",
+      icon: "/weather/rainy.png",
+    },
+    {
+      name: "Athens",
+      temp: "33°",
+      time: "12:23",
+      condition: "storm",
+      icon: "/weather/snow.png",
+    },
+    {
+      name: "Madrid",
+      temp: "31°",
+      time: "10:23",
+      condition: "sunny",
+      icon: "/weather/sunny.png",
+    },
+    {
+      name: "Vienna",
+      temp: "27°",
+      time: "11:23",
+      condition: "rainy",
+      icon: "/weather/rainy.png",
+    },
+    {
+      name: "Athens",
+      temp: "33°",
+      time: "12:23",
+      condition: "storm",
+      icon: "/weather/snow.png",
+    },
   ]
 
   const selectedCityData = cities.find((city) => city.name === selectedCity) || cities[0]
@@ -36,7 +78,7 @@ export default function CitiesPage() {
     <div className="mx-auto flex gap-6">
 
       {/* Main Content - Cities List */}
-      <div className="flex-1 space-y-6">
+      <div className="flex-1 space-y-6 mr-86 mt-18">
         <SearchBar />
 
         {/* Cities List */}
@@ -65,7 +107,7 @@ export default function CitiesPage() {
       </div>
 
       {/* Right Sidebar - Selected City Details */}
-      <div className="w-80 space-y-6">
+      <div className="w-80 space-y-6 fixed right-6">
         {/* Current Weather for Selected City */}
         <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6 flex flex-row justify-between items-center">
           <div className="text-left">

@@ -48,7 +48,7 @@ export default function MapPage() {
     <div className="mx-auto flex gap-6">
 
       {/* Main Content */}
-      <div className="flex-1 space-y-6">
+      <div className="flex-1 space-y-6 mt-18">
         <SearchBar />
 
         {/* Map Container */}
