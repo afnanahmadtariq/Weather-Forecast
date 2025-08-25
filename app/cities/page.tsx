@@ -1,8 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { Search } from "lucide-react"
-import { Input } from "@/components/ui/input"
 import { SearchBar } from "@/components/search-bar"
 
 export default function CitiesPage() {
