@@ -47,7 +47,7 @@ export default function WeatherApp() {
   return (
     <div className="mx-auto flex gap-6">
       {/* Main Content */}
-      <div className="flex-1 space-y-6">
+      <div className="flex-1 space-y-6 pr-86">
         <SearchBar />
 
         {/* Current Weather */}
@@ -90,13 +90,13 @@ export default function WeatherApp() {
               const night = isNightFromIconCode(w?.icon)
               const icon = w ? mapOwmToIcon(w.id, night) : "/weather/windy.png"
         return (
-                <div key={idx} className="text-center">
-          <p className="text-white/[0.6] text-sm mb-4">{formatLocalTime(h.dt, tz, { hour12: timeFormat12h })}</p>
-                  <div className="flex justify-center mb-4">
-                    <img src={icon} alt={w?.description ?? "Forecast"} className="w-12 h-auto" />
-                  </div>
-                  <p className="text-white font-medium">{Math.round(h.temp)}°</p>
+              <div key={idx} className="text-center">
+                <p className="text-white/[0.6] text-sm mb-4">{formatLocalTime(h.dt, tz, { hour12: timeFormat12h })}</p>
+                <div className="flex justify-center mb-4">
+                  <img src={icon} alt={w?.description ?? "Forecast"} className="w-12 h-auto" />
                 </div>
+                <p className="text-white font-medium">{Math.round(h.temp)}°</p>
+              </div>
               )
             })}
           </div>
@@ -292,9 +292,9 @@ export default function WeatherApp() {
       </div>
 
       {/* Right Sidebar - 7-Day Forecast */}
-      <div className="w-80 backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6">
+      <div className="w-80 fixed right-6 h-[calc(100vh-3rem)] backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6">
         <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/5"></div>
-        <h3 className="text-white/[0.6] text-sm font-medium mb-6 uppercase tracking-wider">7-Day Forecast</h3>
+        <h3 className="text-white text-sm font-medium mb-6 uppercase tracking-wider">7-Day Forecast</h3>
         <div className="space-y-4">
           {data?.daily?.slice(0, 7).map((d, idx) => {
             const w = d.weather?.[0]
