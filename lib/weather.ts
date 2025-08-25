@@ -30,7 +30,12 @@ export function formatLocalTime(tsSec: number, tzOffsetSec: number, options: Int
   const utcMs = tsSec * 1000;
   const localMs = utcMs + tzOffsetSec * 1000;
   const d = new Date(localMs);
-  const fmt: Intl.DateTimeFormatOptions = { hour: "numeric", minute: "2-digit", hour12: true, ...options };
+  // Only default to showing time if caller didn't request specific date/time parts
+  const hasDatePart = ("weekday" in options) || ("year" in options) || ("month" in options) || ("day" in options);
+  const hasTimePart = ("hour" in options) || ("minute" in options) || ("second" in options);
+  const fmt: Intl.DateTimeFormatOptions = (!hasDatePart && !hasTimePart)
+    ? { hour: "numeric", minute: "2-digit", hour12: true, ...options }
+    : options;
   return d.toLocaleString(undefined, fmt);
 }
 

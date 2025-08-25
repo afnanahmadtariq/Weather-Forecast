@@ -15,7 +15,7 @@ import {
 import { formatLocalTime, formatDayName, isNightFromIconCode, mapOwmToIcon } from "@/lib/weather"
 import { useWeather } from "@/components/weather-provider"
 
-import type { OwmOneCall, OwmHourly } from "@/components/weather-provider"
+import type { OwmHourly } from "@/components/weather-provider"
 
 export default function WeatherApp() {
   const [showMoreConditions, setShowMoreConditions] = useState(false)
@@ -295,20 +295,20 @@ export default function WeatherApp() {
       <div className="w-80 fixed right-6 h-[calc(100vh-3rem)] backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6">
         <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/5"></div>
         <h3 className="text-white text-sm font-medium mb-6 uppercase tracking-wider">7-Day Forecast</h3>
-        <div className="space-y-4">
+        <div className="divide-y divide-white/[0.2]">
           {data?.daily?.slice(0, 7).map((d, idx) => {
             const w = d.weather?.[0]
             const icon = w ? mapOwmToIcon(w.id, false) : "/weather/windy.png"
             return (
-              <div key={idx} className="flex items-center justify-between py-2">
-                <div className="flex items-center gap-4">
+              <div key={idx} className="flex items-center justify-between py-6">
+                <div className="flex items-center gap-2">
                   <div className="w-12 text-white/[0.6] text-sm">{formatDayName(d.dt, tz)}</div>
                   <div className="w-8 h-auto flex items-center justify-center">
                     <img src={icon} alt={w?.description ?? "Forecast"} className="w-8 h-auto" />
                   </div>
-                  <div className="text-white capitalize">{w?.description ?? "-"}</div>
+                  <div className="text-white capitalize text-sm">{w?.description ?? "-"}</div>
                 </div>
-                <div className="flex items-center gap-2 text-sm">
+                <div className="flex items-center gap-1 text-sm">
                   <span className="text-white">{Math.round(d.temp.max)}</span>
                   <span className="text-white/[0.6]">/{Math.round(d.temp.min)}</span>
                 </div>
