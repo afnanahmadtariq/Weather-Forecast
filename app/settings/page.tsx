@@ -26,7 +26,7 @@ export default function SettingsPage() {
     <div className="mx-auto flex gap-6">
 
       {/* Main Content */}
-      <div className="flex-1 space-y-6">
+      <div className="flex-1 space-y-6 mr-86">
         {/* General Section */}
         <div className="backdrop-blur-lg bg-white/10 shadow-lg rounded-2xl p-6">
           <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/30"></div>
@@ -227,7 +227,7 @@ export default function SettingsPage() {
       </div>
 
       {/* Right Sidebar */}
-      <div className="w-80 space-y-6">
+      <div className="w-80 space-y-6 fixed right-6">
         <div className="backdrop-blur-lg bg-white/10 shadow-lg rounded-2xl p-6">
           <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/30"></div>
           <h2 className="text-xl font-semibold mb-4">Advanced</h2>
