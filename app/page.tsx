@@ -75,28 +75,44 @@ export default function WeatherApp() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  // Attempt to auto-detect user location on first mount
+  // On first mount: try cookie, else geolocate, else default
   useEffect(() => {
-    if (!("geolocation" in navigator)) return
-    navigator.geolocation.getCurrentPosition(
-      async (pos) => {
-        const { latitude, longitude } = pos.coords
-        setCoords({ lat: latitude, lon: longitude })
-        try {
-          // Reverse geocode for city label (best-effort)
-          const res = await fetch(`/api/geocode?lat=${latitude}&lon=${longitude}&limit=1`)
-          if (res.ok) {
-            const [place] = (await res.json()) as Array<{ name: string; state?: string; country?: string }>
-            if (place) setCity(`${place.name}${place.state ? ", " + place.state : ""}${place.country ? ", " + place.country : ""}`)
-          }
-        } catch {}
-      },
-      (geoErr) => {
-        // Show non-blocking toast if user denies
-        toast({ title: "Location permission denied", description: "Using Madrid by default." })
-      },
-      { enableHighAccuracy: true, timeout: 8000, maximumAge: 60000 }
-    )
+    // Try cookie first
+    try {
+      const raw = document.cookie.split("; ").find((c) => c.startsWith("wf_geo="))?.split("=")[1]
+      if (raw) {
+        const decoded = decodeURIComponent(raw)
+        const parsed = JSON.parse(decoded) as { lat?: number; lon?: number; city?: string }
+        if (typeof parsed.lat === "number" && typeof parsed.lon === "number") {
+          setCoords({ lat: parsed.lat, lon: parsed.lon })
+          if (parsed.city) setCity(parsed.city)
+          return
+        }
+      }
+    } catch {}
+
+    // Fallback to geolocation
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        async (pos) => {
+          const { latitude, longitude } = pos.coords
+          setCoords({ lat: latitude, lon: longitude })
+          try {
+            // Reverse geocode for city label (best-effort) - API will also set cookie
+            const res = await fetch(`/api/geocode?lat=${latitude}&lon=${longitude}&limit=1`)
+            if (res.ok) {
+              const [place] = (await res.json()) as Array<{ name: string; state?: string; country?: string }>
+              if (place) setCity(`${place.name}${place.state ? ", " + place.state : ""}${place.country ? ", " + place.country : ""}`)
+            }
+          } catch {}
+        },
+        () => {
+          // Non-blocking toast if denied; keep defaults
+          toast({ title: "Location permission denied", description: "Using Madrid by default." })
+        },
+        { enableHighAccuracy: true, timeout: 8000, maximumAge: 60000 }
+      )
+    }
   }, [])
 
   useEffect(() => {
@@ -136,6 +152,7 @@ export default function WeatherApp() {
       const top = arr[0]
       setCity(`${top.name}${top.state ? ", " + top.state : ""}${top.country ? ", " + top.country : ""}`)
       setCoords({ lat: top.lat, lon: top.lon })
+  // Cookie is set by API; nothing else to do here
     } catch (e: any) {
       setError(e?.message ?? "Search error")
       toast({ title: "Search error", description: e?.message ?? "Unknown error" })

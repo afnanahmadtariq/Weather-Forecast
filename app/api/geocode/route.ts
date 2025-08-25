@@ -41,7 +41,56 @@ export async function GET(request: Request) {
       );
     }
     const data = await resp.json();
-    return NextResponse.json(data);
+
+    // Persist best match in a cookie for future visits
+    try {
+      const res = NextResponse.json(data);
+      const arr = Array.isArray(data) ? data : [];
+      const best = arr[0];
+      let cookieLat: number | null = null;
+      let cookieLon: number | null = null;
+      let cookieCity: string | null = null;
+
+      if (q) {
+        if (best && typeof best.lat === "number" && typeof best.lon === "number") {
+          cookieLat = best.lat;
+          cookieLon = best.lon;
+          const name = best.name || "";
+          const state = best.state ? ", " + best.state : "";
+          const country = best.country ? ", " + best.country : "";
+          cookieCity = `${name}${state}${country}`;
+        }
+      } else {
+        // reverse geocoding – prefer the provided lat/lon, use returned place for label
+        const latNum = lat ? Number(lat) : NaN;
+        const lonNum = lon ? Number(lon) : NaN;
+        if (!Number.isNaN(latNum) && !Number.isNaN(lonNum)) {
+          cookieLat = latNum;
+          cookieLon = lonNum;
+          if (best) {
+            const name = best.name || "";
+            const state = best.state ? ", " + best.state : "";
+            const country = best.country ? ", " + best.country : "";
+            cookieCity = `${name}${state}${country}`;
+          }
+        }
+      }
+
+      if (cookieLat != null && cookieLon != null) {
+        const payload = { lat: cookieLat, lon: cookieLon, city: cookieCity ?? "" };
+        const value = encodeURIComponent(JSON.stringify(payload));
+        res.cookies.set("wf_geo", value, {
+          path: "/",
+          maxAge: 60 * 60 * 24 * 180, // ~180 days
+          sameSite: "lax",
+          secure: process.env.NODE_ENV === "production",
+        });
+      }
+      return res;
+    } catch {
+      // Fallback to plain JSON response if cookie setting fails
+      return NextResponse.json(data);
+    }
   } catch (err: any) {
     return NextResponse.json({ error: err?.message ?? "Unknown error" }, { status: 500 });
   }
