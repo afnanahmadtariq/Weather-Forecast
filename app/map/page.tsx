@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { WiDaySunny, WiRain, WiDayCloudyHigh } from "weather-icons-react"
 import { Plus, Minus, Navigation } from "lucide-react"
+import { SearchBar } from "@/components/search-bar"
 
 export default function MapPage() {
   const [selectedCity, setSelectedCity] = useState("Madrid")
@@ -47,15 +48,7 @@ export default function MapPage() {
 
       {/* Main Content */}
       <div className="flex-1 space-y-6">
-        {/* Search Bar */}
-        <div className="relative">
-          <input
-            type="text"
-            placeholder="Search for cities"
-            defaultValue="Spain"
-            className="w-full bg-slate-800/50 border-slate-700 px-4 py-3 rounded-lg border text-white placeholder:text-slate-400 focus:outline-none focus:border-blue-500"
-          />
-        </div>
+        <SearchBar />
 
         {/* Map Container */}
         <div className="relative bg-gradient-to-br from-green-300 via-green-200 to-blue-300 rounded-2xl h-[600px] overflow-hidden">

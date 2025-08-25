@@ -48,8 +48,7 @@ export default function WeatherApp() {
     <div className="mx-auto flex gap-6">
       {/* Main Content */}
       <div className="flex-1 space-y-6">
-  {/* Search Bar */}
-  <SearchBar />
+        <SearchBar />
 
         {/* Current Weather */}
         <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-8">

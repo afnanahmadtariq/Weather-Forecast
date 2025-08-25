@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Search } from "lucide-react"
 import { Input } from "@/components/ui/input"
+import { SearchBar } from "@/components/search-bar"
 
 export default function CitiesPage() {
   const [selectedCity, setSelectedCity] = useState("Madrid")
@@ -38,14 +39,7 @@ export default function CitiesPage() {
 
       {/* Main Content - Cities List */}
       <div className="flex-1 space-y-6">
-        {/* Search Bar */}
-        <div className="relative">
-          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
-          <Input
-            placeholder="Search for cities"
-            className="backdrop-blur-xs bg-white/5 shadow-lg border-slate-700 pl-12 h-12 text-white placeholder:text-slate-400"
-          />
-        </div>
+        <SearchBar />
 
         {/* Cities List */}
         <div className="space-y-4">

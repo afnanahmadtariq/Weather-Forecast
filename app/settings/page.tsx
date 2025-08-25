@@ -38,20 +38,20 @@ export default function SettingsPage() {
             <div className="flex space-x-2">
               <button
                 onClick={() => updateUnit("temperature", "celsius")}
-                className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-colors ${
+                className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
                   units.temperature === "celsius"
-                    ? "bg-slate-600 text-white"
-                    : "bg-slate-700/50 text-slate-400 hover:bg-slate-600/50"
+                    ? "bg-blue-500 text-white"
+                    : "bg-white/10 text-white/60 hover:bg-blue-500/50"
                 }`}
               >
                 Celsius
               </button>
               <button
                 onClick={() => updateUnit("temperature", "fahrenheit")}
-                className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-colors ${
+                className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
                   units.temperature === "fahrenheit"
-                    ? "bg-slate-600 text-white"
-                    : "bg-slate-700/50 text-slate-400 hover:bg-slate-600/50"
+                    ? "bg-blue-500 text-white"
+                    : "bg-white/10 text-white/60 hover:bg-blue-500/50"
                 }`}
               >
                 Fahrenheit
@@ -67,10 +67,10 @@ export default function SettingsPage() {
                 <button
                   key={unit}
                   onClick={() => updateUnit("windSpeed", unit)}
-                  className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-colors ${
+                  className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
                     units.windSpeed === unit
-                      ? "bg-slate-600 text-white"
-                      : "bg-slate-700/50 text-slate-400 hover:bg-slate-600/50"
+                      ? "bg-blue-500 text-white"
+                      : "bg-white/10 text-white/60 hover:bg-blue-500/50"
                   }`}
                 >
                   {unit === "kmh" ? "km/h" : unit === "ms" ? "m/s" : "Knots"}
@@ -87,10 +87,10 @@ export default function SettingsPage() {
                 <button
                   key={unit}
                   onClick={() => updateUnit("pressure", unit)}
-                  className={`py-3 px-4 rounded-lg text-sm font-medium transition-colors ${
+                  className={`py-3 px-4 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
                     units.pressure === unit
-                      ? "bg-slate-600 text-white"
-                      : "bg-slate-700/50 text-slate-400 hover:bg-slate-600/50"
+                      ? "bg-blue-500 text-white"
+                      : "bg-white/10 text-white/60 hover:bg-blue-500/50"
                   }`}
                 >
                   {unit === "hpa" ? "hPa" : unit === "kpa" ? "kPa" : unit}
@@ -105,20 +105,20 @@ export default function SettingsPage() {
             <div className="flex space-x-2">
               <button
                 onClick={() => updateUnit("precipitation", "millimeters")}
-                className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-colors ${
+                className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
                   units.precipitation === "millimeters"
-                    ? "bg-slate-600 text-white"
-                    : "bg-slate-700/50 text-slate-400 hover:bg-slate-600/50"
+                    ? "bg-blue-500 text-white"
+                    : "bg-white/10 text-white/60 hover:bg-blue-500/50"
                 }`}
               >
                 Millimeters
               </button>
               <button
                 onClick={() => updateUnit("precipitation", "inches")}
-                className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-colors ${
+                className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
                   units.precipitation === "inches"
-                    ? "bg-slate-600 text-white"
-                    : "bg-slate-700/50 text-slate-400 hover:bg-slate-600/50"
+                    ? "bg-blue-500 text-white"
+                    : "bg-white/10 text-white/60 hover:bg-blue-500/50"
                 }`}
               >
                 Inches
@@ -132,20 +132,20 @@ export default function SettingsPage() {
             <div className="flex space-x-2">
               <button
                 onClick={() => updateUnit("distance", "kilometers")}
-                className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-colors ${
+                className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
                   units.distance === "kilometers"
-                    ? "bg-slate-600 text-white"
-                    : "bg-slate-700/50 text-slate-400 hover:bg-slate-600/50"
+                    ? "bg-blue-500 text-white"
+                    : "bg-white/10 text-white/60 hover:bg-blue-500/50"
                 }`}
               >
                 Kilometers
               </button>
               <button
                 onClick={() => updateUnit("distance", "miles")}
-                className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-colors ${
+                className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
                   units.distance === "miles"
-                    ? "bg-slate-600 text-white"
-                    : "bg-slate-700/50 text-slate-400 hover:bg-slate-600/50"
+                    ? "bg-blue-500 text-white"
+                    : "bg-white/10 text-white/60 hover:bg-blue-500/50"
                 }`}
               >
                 Miles
@@ -162,12 +162,12 @@ export default function SettingsPage() {
           <div className="flex items-center justify-between p-4 bg-slate-700/30 rounded-xl">
             <div>
               <h3 className="font-medium">Notifications</h3>
-              <p className="text-sm text-slate-400">Be aware of the weather</p>
+              <p className="text-sm text-white/60">Be aware of the weather</p>
             </div>
             <button
               onClick={() => setNotifications(!notifications)}
-              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                notifications ? "bg-blue-500" : "bg-slate-600"
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors cursor-pointer ${
+                notifications ? "bg-blue-500" : "bg-blue-500"
               }`}
             >
               <span
@@ -191,8 +191,8 @@ export default function SettingsPage() {
               </div>
               <button
                 onClick={() => setTwelveHourTime(!twelveHourTime)}
-                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  twelveHourTime ? "bg-blue-500" : "bg-slate-600"
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors cursor-pointer ${
+                  twelveHourTime ? "bg-blue-500" : "bg-blue-500"
                 }`}
               >
                 <span
@@ -206,12 +206,12 @@ export default function SettingsPage() {
             <div className="flex items-center justify-between p-4 bg-slate-700/30 rounded-xl">
               <div>
                 <h3 className="font-medium">Location</h3>
-                <p className="text-sm text-slate-400">Get weather of your location</p>
+                <p className="text-sm text-white/60">Get weather of your location</p>
               </div>
               <button
                 onClick={() => setLocation(!location)}
-                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  location ? "bg-blue-500" : "bg-slate-600"
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors cursor-pointer ${
+                  location ? "bg-blue-500" : "bg-blue-500"
                 }`}
               >
                 <span
@@ -240,9 +240,9 @@ export default function SettingsPage() {
               <li>• Severe weather notifications</li>
             </ul>
 
-            <div className="bg-slate-700/50 rounded-xl p-4 text-center">
+            <div className="bg-white/10 rounded-xl p-4 text-center">
               <div className="text-2xl font-bold">
-                $5.99<span className="text-sm font-normal text-slate-400">/month</span>
+                $5.99<span className="text-sm font-normal text-white/60">/month</span>
               </div>
             </div>
           </div>
@@ -252,11 +252,12 @@ export default function SettingsPage() {
           <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/30"></div>
           <h2 className="text-xl font-semibold mb-4">Never forget your umbrella!</h2>
 
-          <p className="text-sm text-slate-400 mb-6">
+          <p className="text-sm text-white/60 mb-6">
             Sign up for our daily weather newsletter personalized just for you.
           </p>
 
-          <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-4 rounded-xl transition-colors">
+          <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-4 rounded-xl transition-colors cursor-pointer">
+            
             Sign up
           </button>
         </div>
