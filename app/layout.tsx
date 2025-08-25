@@ -18,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="icon" type="image/x-icon" href="/weather/partly-cloudy.png" />
         <style>{`
           html {
             font-family: ${GeistSans.style.fontFamily};

@@ -34,10 +34,20 @@ export async function GET(request: Request) {
     forecastUrl.searchParams.set("lang", lang);
     forecastUrl.searchParams.set("appid", apiKey);
 
-    // Fetch in parallel
-    const [curResp, fcResp] = await Promise.all([
+    // Prepare Open-Meteo URL for UV Index (free)
+    const omUrl = new URL("https://api.open-meteo.com/v1/forecast");
+    omUrl.searchParams.set("latitude", lat);
+    omUrl.searchParams.set("longitude", lon);
+    // Request both current and hourly UV index to be safe
+    omUrl.searchParams.set("current", "uv_index");
+    omUrl.searchParams.set("hourly", "uv_index");
+    omUrl.searchParams.set("timezone", "auto");
+
+    // Fetch in parallel (do not fail overall if Open-Meteo fails)
+    const [curResp, fcResp, omResp] = await Promise.all([
       fetch(currentUrl.toString()),
       fetch(forecastUrl.toString()),
+      fetch(omUrl.toString()).catch(() => null),
     ]);
 
     if (!curResp.ok) {
@@ -57,6 +67,32 @@ export async function GET(request: Request) {
 
     const current = await curResp.json();
     const forecast = await fcResp.json();
+    let uvIndex: number | undefined = undefined;
+    try {
+      if (omResp && (omResp as Response).ok) {
+        const om = await (omResp as Response).json();
+        // Prefer current.uv_index if available
+        if (om?.current?.uv_index != null) {
+          uvIndex = Number(om.current.uv_index);
+        } else if (Array.isArray(om?.hourly?.uv_index) && Array.isArray(om?.hourly?.time)) {
+          // Fallback: pick nearest hour to now
+          const times: string[] = om.hourly.time;
+          const values: number[] = om.hourly.uv_index;
+          let bestIdx = 0;
+          let bestDiff = Number.POSITIVE_INFINITY;
+          const now = Date.now();
+          for (let i = 0; i < times.length; i++) {
+            const t = Date.parse(times[i]);
+            const diff = Math.abs(t - now);
+            if (diff < bestDiff) {
+              bestDiff = diff;
+              bestIdx = i;
+            }
+          }
+          uvIndex = Number(values[bestIdx]);
+        }
+      }
+    } catch {}
 
     // Derive timezone offset (seconds) from either response
     const tzOffset: number = forecast?.city?.timezone ?? current?.timezone ?? 0;
@@ -70,7 +106,7 @@ export async function GET(request: Request) {
       feels_like: current.main?.feels_like,
       pressure: current.main?.pressure,
       humidity: current.main?.humidity,
-      uvi: undefined as number | undefined, // UVI not available in free /weather
+      uvi: uvIndex,
       clouds: current.clouds?.all,
       visibility: current.visibility,
       wind_speed: current.wind?.speed,
