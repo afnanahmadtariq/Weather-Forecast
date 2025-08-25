@@ -4,7 +4,6 @@ import { useState } from "react"
 import { Search } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Navigation } from "@/components/navigation"
 import {
   WiThermometer,
   WiHumidity,
@@ -43,9 +42,9 @@ export default function WeatherApp() {
             </div>
             <div className="relative">
               <img
-                src="/sunny.png"
+                src="/weather/windy.png"
                 alt="Sunny weather"
-                className="w-32 h-32"
+                className="w-auto h-32"
               />
             </div>
           </div>
@@ -68,21 +67,21 @@ export default function WeatherApp() {
                 <p className="text-white/[0.6] text-sm mb-4">{item.time}</p>
                 <div className="flex justify-center mb-4">
                   {item.icon === "cloudy" && (
-                    <img src="/cloudy.png" alt="Cloudy" className="w-12 h-auto" />
+                    <img src="/weather/cloudy.png" alt="Cloudy" className="w-12 h-auto" />
                   )}
                   {item.icon === "partly-sunny" && (
                     <img
-                      src="/cloudy-with-sun.png"
+                      src="/weather/partly-cloudy.png"
                       alt="Partly sunny"
                       className="w-12 h-auto"
                     />
                   )}
                   {item.icon === "sunny" && (
-                    <img src="/sunny.png" alt="Sunny" className="w-12 h-auto" />
+                    <img src="/weather/sunny.png" alt="Sunny" className="w-12 h-auto" />
                   )}
                   {item.icon === "partly-cloudy" && (
                     <img
-                      src="/cloudy-with-sun.png"
+                      src="/weather/partly-cloudy.png"
                       alt="Partly cloudy"
                       className="w-12 h-auto"
                     />
@@ -229,16 +228,16 @@ export default function WeatherApp() {
                 <div className="w-12 text-white/[0.6] text-sm">{item.day}</div>
                 <div className="w-8 h-auto flex items-center justify-center">
                   {item.icon === "sunny" && (
-                    <img src="/sunny.png" alt="Sunny" className="w-8 h-auto" />
+                    <img src="/weather/sunny.png" alt="Sunny" className="w-8 h-auto" />
                   )}
                   {item.icon === "cloudy" && (
-                    <img src="/small-cloudy-weather-icon-grey.png" alt="Cloudy" className="w-8 h-auto" />
+                    <img src="/weather/cloudy.png" alt="Cloudy" className="w-8 h-auto" />
                   )}
                   {item.icon === "rainy" && (
-                    <img src="/rainy.png" alt="Rainy" className="w-8 h-auto" />
+                    <img src="/weather/rainy.png" alt="Rainy" className="w-8 h-auto" />
                   )}
                   {item.icon === "storm" && (
-                    <img src="/small-storm-weather-icon-with-lightning-bolt.png" alt="Storm" className="w-8 h-auto" />
+                    <img src="/weather/small-storm-weather-icon-with-lightning-bolt.png" alt="Storm" className="w-8 h-auto" />
                   )}
                 </div>
                 <div className="text-white">{item.condition}</div>

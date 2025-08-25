@@ -3,7 +3,6 @@
 import { useState } from "react"
 import { Search } from "lucide-react"
 import { Input } from "@/components/ui/input"
-import { Navigation } from "@/components/navigation"
 
 export default function CitiesPage() {
   const [selectedCity, setSelectedCity] = useState("Madrid")
@@ -14,14 +13,14 @@ export default function CitiesPage() {
       temp: "31°",
       time: "10:23",
       condition: "sunny",
-      icon: "/sunny.png",
+      icon: "/weather/sunny.png",
     },
     {
       name: "Vienna",
       temp: "27°",
       time: "11:23",
       condition: "rainy",
-      icon: "/rainy.png",
+      icon: "/weather/rainy.png",
     },
     {
       name: "Athens",
@@ -94,9 +93,9 @@ export default function CitiesPage() {
           <h3 className="text-slate-400 text-sm font-medium mb-6 uppercase tracking-wider">Today's Forecast</h3>
           <div className="space-y-4">
             {[
-              { time: "6:00 AM", temp: "25°", icon: "/cloudy.png" },
-              { time: "9:00 AM", temp: "28°", icon: "/cloudy-with-sunny.png" },
-              { time: "12:00 PM", temp: "33°", icon: "/sunny.png" },
+              { time: "6:00 AM", temp: "25°", icon: "/weather/cloudy.png" },
+              { time: "9:00 AM", temp: "28°", icon: "/weather/cloudy-with-sunny.png" },
+              { time: "12:00 PM", temp: "33°", icon: "/weather/sunny.png" },
             ].map((item, index) => (
               <div key={index} className="flex items-center justify-between">
                 <span className="text-slate-400 text-sm">{item.time}</span>
@@ -119,21 +118,21 @@ export default function CitiesPage() {
                 condition: "Sunny",
                 high: "36",
                 low: "22",
-                icon: "/sunny.png",
+                icon: "/weather/sunny.png",
               },
               {
                 day: "Tue",
                 condition: "Sunny",
                 high: "37",
                 low: "21",
-                icon: "/sunny.png",
+                icon: "/weather/sunny.png",
               },
               {
                 day: "Wed",
                 condition: "Sunny",
                 high: "37",
                 low: "21",
-                icon: "/sunny.png",
+                icon: "/weather/sunny.png",
               },
             ].map((item, index) => (
               <div key={index} className="flex items-center justify-between">

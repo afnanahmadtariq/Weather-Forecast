@@ -3,7 +3,6 @@
 import { useState } from "react"
 import { WiDaySunny, WiRain, WiDayCloudyHigh } from "weather-icons-react"
 import { Plus, Minus, Navigation } from "lucide-react"
-import { Navigation as NavComponent } from "@/components/navigation"
 
 export default function MapPage() {
   const [selectedCity, setSelectedCity] = useState("Madrid")
