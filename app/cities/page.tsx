@@ -43,7 +43,7 @@ export default function CitiesPage() {
           <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
           <Input
             placeholder="Search for cities"
-            className="bg-slate-800/50 border-slate-700 pl-12 h-12 text-white placeholder:text-slate-400"
+            className="backdrop-blur-xs bg-white/5 shadow-lg border-slate-700 pl-12 h-12 text-white placeholder:text-slate-400"
           />
         </div>
 
@@ -53,7 +53,7 @@ export default function CitiesPage() {
             <div
               key={city.name}
               onClick={() => setSelectedCity(city.name)}
-              className={`bg-slate-800/50 rounded-2xl p-6 cursor-pointer transition-all ${
+              className={`backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6 cursor-pointer transition-all ${
                 selectedCity === city.name ? "ring-2 ring-blue-500" : "hover:bg-slate-800/70"
               }`}
             >
@@ -75,7 +75,7 @@ export default function CitiesPage() {
       {/* Right Sidebar - Selected City Details */}
       <div className="w-80 space-y-6">
         {/* Current Weather for Selected City */}
-        <div className="bg-slate-800/50 rounded-2xl p-6">
+        <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6">
           <div className="text-center">
             <h2 className="text-3xl font-light mb-2">{selectedCityData.name}</h2>
             <p className="text-slate-400 mb-6">Chance of rain: 0%</p>
@@ -89,7 +89,7 @@ export default function CitiesPage() {
         </div>
 
         {/* Today's Forecast */}
-        <div className="bg-slate-800/50 rounded-2xl p-6">
+        <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6">
           <h3 className="text-slate-400 text-sm font-medium mb-6 uppercase tracking-wider">Today's Forecast</h3>
           <div className="space-y-4">
             {[
@@ -109,7 +109,7 @@ export default function CitiesPage() {
         </div>
 
         {/* 3-Day Forecast */}
-        <div className="bg-slate-800/50 rounded-2xl p-6">
+        <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6">
           <h3 className="text-slate-400 text-sm font-medium mb-6 uppercase tracking-wider">3-Day Forecast</h3>
           <div className="space-y-4">
             {[

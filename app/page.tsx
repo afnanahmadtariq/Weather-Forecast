@@ -73,7 +73,7 @@ export default function WeatherApp() {
   const [coords, setCoords] = useState<{ lat: number; lon: number }>({ lat: 40.4168, lon: -3.7038 })
   const [data, setData] = useState<OwmOneCall | null>(null)
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  
 
   // On first mount: try cookie, else geolocate, else default
   useEffect(() => {
@@ -119,14 +119,12 @@ export default function WeatherApp() {
     const fetchWeather = async () => {
       try {
         setLoading(true)
-        setError(null)
         const url = `/api/weather?lat=${coords.lat}&lon=${coords.lon}&units=metric`
         const res = await fetch(url)
         if (!res.ok) throw new Error(`Weather fetch failed: ${res.status}`)
         const json: OwmOneCall = await res.json()
         setData(json)
       } catch (e: any) {
-        setError(e?.message ?? "Failed to load weather")
         toast({ title: "Failed to load weather", description: e?.message ?? "Unknown error" })
         setData(null)
       } finally {
@@ -141,12 +139,11 @@ export default function WeatherApp() {
     if (!q) return
     try {
       setLoading(true)
-      setError(null)
       const res = await fetch(`/api/geocode?q=${encodeURIComponent(q)}&limit=1`)
       if (!res.ok) throw new Error(`Geocode failed: ${res.status}`)
       const arr: Array<{ name: string; country?: string; state?: string; lat: number; lon: number }> = await res.json()
       if (!arr?.length) {
-        setError("No matching city")
+  toast({ title: "No matching city", description: "Try a different search term." })
         return
       }
       const top = arr[0]
@@ -154,7 +151,6 @@ export default function WeatherApp() {
       setCoords({ lat: top.lat, lon: top.lon })
   // Cookie is set by API; nothing else to do here
     } catch (e: any) {
-      setError(e?.message ?? "Search error")
       toast({ title: "Search error", description: e?.message ?? "Unknown error" })
     } finally {
       setLoading(false)
@@ -191,7 +187,7 @@ export default function WeatherApp() {
         {/* Search Bar */}
         <div className="relative">
           <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/5"></div>
-          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/[0.6]" />
+          <Search className="absolute left-4 top-1/2 z-10 transform -translate-y-1/2 w-5 h-5 text-white/[0.6]" />
           <div className="flex gap-2">
             <Input
               value={query}
@@ -200,13 +196,11 @@ export default function WeatherApp() {
               placeholder="Search for cities"
               className="flex-1 backdrop-blur-xs bg-white/5 shadow-lg border-white/20 pl-12 h-12 text-white placeholder:text-white/[0.8]"
             />
-            <Button onClick={handleSearch} className="h-12">Search</Button>
           </div>
-          {error && <div className="mt-2 text-sm text-red-300">{error}</div>}
         </div>
 
         {/* Current Weather */}
-  <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-8">
+        <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-8">
           <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/5"></div>
           <div className="flex items-start justify-between">
             <div>
@@ -263,9 +257,8 @@ export default function WeatherApp() {
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-white/[0.6] text-sm font-medium uppercase tracking-wider">Air Conditions</h3>
             <Button
-              variant="outline"
               size="sm"
-              className="bg-blue-500 border-blue-500 text-white hover:bg-blue-600"
+              className="bg-blue-500 hover:bg-blue-600 text-white cursor-pointer p-5"
               onClick={() => setShowMoreConditions(!showMoreConditions)}
             >
               {showMoreConditions ? "See less" : "See more"}
