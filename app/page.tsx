@@ -89,7 +89,7 @@ export default function WeatherApp() {
               const w = h.weather?.[0]
               const night = isNightFromIconCode(w?.icon)
               const icon = w ? mapOwmToIcon(w.id, night) : "/weather/windy.png"
-        return (
+              return (
               <div key={idx} className="text-center">
                 <p className="text-white/[0.6] text-sm mb-4">{formatLocalTime(h.dt, tz, { hour12: timeFormat12h })}</p>
                 <div className="flex justify-center mb-4">
@@ -115,23 +115,22 @@ export default function WeatherApp() {
               {showMoreConditions ? "See less" : "See more"}
             </Button>
           </div>
-          <div className={`grid gap-4 ${showMoreConditions ? "grid-cols-4" : "grid-cols-2"}`}>
+          <div className={`grid gap-4 ${showMoreConditions ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-2"}`}>
             {showMoreConditions ? (
-              // Expanded view with 8 cards
               <>
-                <div className="backdrop-blur-xs bg-white/5 shadow-lg  rounded-xl p-4">
+                <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-2">
                     <WiDayHaze size={20} color="#94a3b8" />
                     <p className="text-white/[0.6] text-sm uppercase tracking-wide">UV Index</p>
                   </div>
-                  <p className="text-3xl font-light">{loading ? <span className="inline-block w-10 h-8 bg-white/10 rounded animate-pulse" /> : (current?.uvi ?? "-")}</p>
+                  <p className="text-2xl sm:text-3xl font-light">{loading ? <span className="inline-block w-10 h-8 bg-white/10 rounded animate-pulse" /> : (current?.uvi ?? "-")}</p>
                 </div>
-                <div className="backdrop-blur-xs bg-white/5 shadow-lg  rounded-xl p-4">
+                <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-2">
                     <WiStrongWind size={20} color="#94a3b8" />
                     <p className="text-white/[0.6] text-sm uppercase tracking-wide">Wind</p>
                   </div>
-                  <p className="text-3xl font-light">
+                  <p className="text-2xl sm:text-3xl font-light">
                     {loading ? (
                       <span className="inline-block w-20 h-8 bg-white/10 rounded animate-pulse" />
                     ) : current ? (
@@ -160,14 +159,14 @@ export default function WeatherApp() {
                     <WiHumidity size={20} color="#94a3b8" />
                     <p className="text-white/[0.6] text-sm uppercase tracking-wide">Humidity</p>
                   </div>
-                  <p className="text-3xl font-light">{loading ? <span className="inline-block w-14 h-8 bg-white/10 rounded animate-pulse" /> : (current ? `${current.humidity}%` : "-")}</p>
+                  <p className="text-2xl sm:text-3xl font-light">{loading ? <span className="inline-block w-14 h-8 bg-white/10 rounded animate-pulse" /> : (current ? `${current.humidity}%` : "-")}</p>
                 </div>
                 <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-2">
                     <WiDayFog size={20} color="#94a3b8" />
                     <p className="text-white/[0.6] text-sm uppercase tracking-wide">Visibility</p>
                   </div>
-                  <p className="text-3xl font-light">
+                  <p className="text-2xl sm:text-3xl font-light">
                     {loading ? (
                       <span className="inline-block w-14 h-8 bg-white/10 rounded animate-pulse" />
                     ) : current?.visibility != null ? (
@@ -190,21 +189,21 @@ export default function WeatherApp() {
                     <WiThermometer size={20} color="#94a3b8" />
                     <p className="text-white/[0.6] text-sm uppercase tracking-wide">Feels Like</p>
                   </div>
-                  <p className="text-3xl font-light">{loading ? <span className="inline-block w-12 h-8 bg-white/10 rounded animate-pulse" /> : (current ? `${Math.round(current.feels_like)}°` : "-")}</p>
+                  <p className="text-2xl sm:text-3xl font-light">{loading ? <span className="inline-block w-12 h-8 bg-white/10 rounded animate-pulse" /> : (current ? `${Math.round(current.feels_like)}°` : "-")}</p>
                 </div>
                 <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-2">
                     <WiHumidity size={20} color="#94a3b8" />
                     <p className="text-white/[0.6] text-sm uppercase tracking-wide">Chance of Rain</p>
                   </div>
-                  <p className="text-3xl font-light">{loading ? <span className="inline-block w-10 h-8 bg-white/10 rounded animate-pulse" /> : `${chanceOfRainToday}%`}</p>
+                  <p className="text-2xl sm:text-3xl font-light">{loading ? <span className="inline-block w-10 h-8 bg-white/10 rounded animate-pulse" /> : `${chanceOfRainToday}%`}</p>
                 </div>
                 <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-2">
                     <WiBarometer size={20} color="#94a3b8" />
                     <p className="text-white/[0.6] text-sm uppercase tracking-wide">Pressure</p>
                   </div>
-                  <p className="text-3xl font-light">
+                  <p className="text-2xl sm:text-3xl font-light">
                     {loading ? (
                       <span className="inline-block w-16 h-8 bg-white/10 rounded animate-pulse" />
                     ) : current ? (
@@ -239,25 +238,24 @@ export default function WeatherApp() {
                     <WiSunset size={20} color="#94a3b8" />
                     <p className="text-white/[0.6] text-sm uppercase tracking-wide">Sunset</p>
                   </div>
-                  <p className="text-3xl font-light">{loading ? <span className="inline-block w-16 h-8 bg-white/10 rounded animate-pulse" /> : (data && (data.daily?.[0]?.sunset || current?.sunset) ? formatLocalTime((data.daily?.[0]?.sunset || current?.sunset)!, tz, { hour: "2-digit", minute: "2-digit", hour12: timeFormat12h }) : "-")}</p>
+                  <p className="text-2xl sm:text-3xl font-light">{loading ? <span className="inline-block w-16 h-8 bg-white/10 rounded animate-pulse" /> : (data && (data.daily?.[0]?.sunset || current?.sunset) ? formatLocalTime((data.daily?.[0]?.sunset || current?.sunset)!, tz, { hour: "2-digit", minute: "2-digit", hour12: timeFormat12h }) : "-")}</p>
                 </div>
               </>
             ) : (
-              // Original collapsed view with 4 items
               <>
                 <div className="space-y-6">
                   <div className="flex items-center gap-3">
                     <WiThermometer size={20} color="#94a3b8" />
                     <div>
                       <p className="text-white/[0.6] text-sm">Real Feel</p>
-            <p className="text-2xl font-light">{current ? `${Math.round(current.feels_like)}°` : "-"}</p>
+                      <p className="text-2xl font-light">{current ? `${Math.round(current.feels_like)}°` : "-"}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
                     <WiHumidity size={20} color="#94a3b8" />
                     <div>
                       <p className="text-white/[0.6] text-sm">Chance of rain</p>
-            <p className="text-2xl font-light">{chanceOfRainToday}%</p>
+                      <p className="text-2xl font-light">{chanceOfRainToday}%</p>
                     </div>
                   </div>
                 </div>
@@ -266,22 +264,22 @@ export default function WeatherApp() {
                     <WiStrongWind size={20} color="#94a3b8" />
                     <div>
                       <p className="text-white/[0.6] text-sm">Wind</p>
-            <p className="text-2xl font-light">{
-              current ? (() => {
-                const baseMs = units.temperature === "fahrenheit" ? (current.wind_speed ?? 0) * 0.44704 : (current.wind_speed ?? 0)
-                const { windSpeed } = units
-                if (windSpeed === "kmh") return `${Math.round(baseMs * 3.6)} km/h`
-                if (windSpeed === "ms") return `${Math.round(baseMs)} m/s`
-                return `${Math.round(baseMs * 1.943844)} knots`
-              })() : "-"
-            }</p>
+                      <p className="text-2xl font-light">{
+                        current ? (() => {
+                          const baseMs = units.temperature === "fahrenheit" ? (current.wind_speed ?? 0) * 0.44704 : (current.wind_speed ?? 0)
+                          const { windSpeed } = units
+                          if (windSpeed === "kmh") return `${Math.round(baseMs * 3.6)} km/h`
+                          if (windSpeed === "ms") return `${Math.round(baseMs)} m/s`
+                          return `${Math.round(baseMs * 1.943844)} knots`
+                        })() : "-"
+                      }</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
                     <WiDayHaze size={20} color="#94a3b8" />
                     <div>
                       <p className="text-white/[0.6] text-sm">UV Index</p>
-            <p className="text-2xl font-light">{current?.uvi ?? "-"}</p>
+                      <p className="text-2xl font-light">{current?.uvi ?? "-"}</p>
                     </div>
                   </div>
                 </div>
