@@ -18,7 +18,7 @@ export function Navigation() {
   ]
 
   return (
-    <div className="w-16 h-[calc(100vh-3rem)] fixed backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-4 flex flex-col items-center gap-8">
+    <div className="top-5 sm:w-16 sm:h-[calc(100vh-3rem)] fixed z-20 backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-2 flex flex-col items-center gap-8">
       <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/5"></div>
       <div className="p-2 bg-blue-500 rounded-lg w-10 h-10 flex items-center justify-center">
         <img
@@ -29,18 +29,18 @@ export function Navigation() {
           height={40}
         />
       </div>
-      {navItems.map((item) => {
-        const isActive = pathname === item.href
-        const Icon = item.icon
-        return (
-          <Link key={item.href} href={item.href} className="flex flex-col items-center gap-2">
-            <div className={`p-2 rounded-lg hover:bg-white/10 cursor-pointer ${isActive ? "bg-white/20" : "bg-white/5"}`}>
-              <Icon size={20} color={isActive ? "white" : "#FFFFFF99"} />
-            </div>
-            <span className={`text-xs ${isActive ? "text-white" : "text-white/[0.6]"}`}>{item.label}</span>
-          </Link>
-        )
-      })}
+        {navItems.map((item) => {
+          const isActive = pathname === item.href
+          const Icon = item.icon
+          return (
+            <Link key={item.href} href={item.href} className="hidden sm:flex flex-col items-center gap-2">
+              <div className={`p-2 rounded-lg hover:bg-white/10 cursor-pointer ${isActive ? "bg-white/20" : "bg-white/5"}`}>
+                <Icon size={20} color={isActive ? "white" : "#FFFFFF99"} />
+              </div>
+              <span className={`text-xs ${isActive ? "text-white" : "text-white/[0.6]"}`}>{item.label}</span>
+            </Link>
+          )
+        })}
     </div>
   )
 }

@@ -33,12 +33,12 @@ export default function RootLayout({
       </head>
     <body>
       <div
-        className="min-h-screen bg-fixed bg-cover bg-center text-white p-6"
+        className="min-h-screen bg-fixed bg-cover bg-center text-white p-3 sm:p-6"
         style={{ backgroundImage: "var(--app-bg-image)" }}
       >
         <WeatherProvider>
           <Navigation />
-          <div className="ml-[5.5rem]">{children}</div>
+          <div className="sm:ml-[5.5rem]">{children}</div>
           <Toaster />
         </WeatherProvider>
       </div>

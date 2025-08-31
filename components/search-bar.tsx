@@ -21,7 +21,7 @@ export function SearchBar({ placeholder = "Search for cities" }: Props) {
 
   return (
     <>
-      <div className="fixed top-6 z-20 mr-86 w-[calc(100%-30rem)]">
+      <div className="fixed top-6 ml-16 sm:mx-auto z-20 sm:mr-86 sm:w-[calc(100%-30rem)]">
         <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/5"></div>
         <Search className="absolute left-4 top-1/2 z-10 transform -translate-y-1/2 w-5 h-5 text-white/[0.6]" />
         <div className="flex gap-2">
@@ -36,7 +36,7 @@ export function SearchBar({ placeholder = "Search for cities" }: Props) {
       </div>
     </div>
     <div 
-        className="fixed top-0 z-10 h-24 w-[calc(100%-27rem)] -ml-6 bg-fixed bg-cover bg-center shadow-b-lg"
+        className="fixed top-0 z-10 h-20 sm:h-24 w-full sm:w-[calc(100%-27rem)] -ml-6 bg-fixed bg-cover bg-center shadow-b-lg"
         style={{ backgroundImage: "var(--app-bg-image)" }}
         ></div>
     </>

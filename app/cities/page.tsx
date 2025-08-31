@@ -75,10 +75,10 @@ export default function CitiesPage() {
   const selectedCityData = cities.find((city) => city.name === selectedCity) || cities[0]
 
   return (
-    <div className="mx-auto flex gap-6">
+    <div className="mx-auto flex flex-col sm:flex-row gap-6">
 
       {/* Main Content - Cities List */}
-      <div className="flex-1 space-y-6 mr-86 mt-18">
+      <div className="flex-1 space-y-6 sm:mr-86 mt-18">
         <SearchBar />
 
         {/* Cities List */}
@@ -107,7 +107,7 @@ export default function CitiesPage() {
       </div>
 
       {/* Right Sidebar - Selected City Details */}
-      <div className="w-80 space-y-6 fixed right-6">
+      <div className="sm:w-80 space-y-6 sm:fixed right-6">
         {/* Current Weather for Selected City */}
         <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6 flex flex-row justify-between items-center">
           <div className="text-left">

@@ -45,7 +45,7 @@ export default function MapPage() {
   ]
 
   return (
-    <div className="mx-auto flex gap-6">
+    <div className="mx-auto flex flex-col sm:flex-row gap-6">
 
       {/* Main Content */}
       <div className="flex-1 space-y-6 mt-18">
@@ -122,7 +122,7 @@ export default function MapPage() {
       </div>
 
       {/* Right Sidebar - Cities List */}
-      <div className="w-80 backdrop-blur-xs bg-white/5 shadow-lg  rounded-2xl p-6">
+      <div className="sm:w-80 backdrop-blur-xs bg-white/5 shadow-lg  rounded-2xl p-6">
         <div className="space-y-4">
           {cities.map((city) => (
             <div

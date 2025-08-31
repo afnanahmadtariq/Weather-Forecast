@@ -5,6 +5,7 @@ import { Search } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Navigation } from "@/components/navigation"
 import { useWeather } from "@/components/weather-provider"
+import { SearchBar } from "@/components/search-bar"
 
 export default function SettingsPage() {
   const {
@@ -23,10 +24,11 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="mx-auto flex gap-6">
+    <div className="mx-auto flex flex-col sm:flex-row gap-6">
 
       {/* Main Content */}
-      <div className="flex-1 space-y-6 mr-86">
+      <div className="flex-1 space-y-6 sm:mr-86 mt-18">
+        <SearchBar />
         {/* General Section */}
         <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6">
           <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/5"></div>
@@ -227,7 +229,7 @@ export default function SettingsPage() {
       </div>
 
       {/* Right Sidebar */}
-      <div className="w-80 space-y-6 fixed right-6">
+      <div className="sm:w-80 space-y-6 sm:fixed right-6">
         <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6">
           <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/5"></div>
           <h2 className="text-xl font-semibold mb-4">Advanced</h2>
