@@ -28,48 +28,6 @@ export default function CitiesPage() {
       condition: "storm",
       icon: "/weather/snow.png",
     },
-    {
-      name: "Madrid",
-      temp: "31°",
-      time: "10:23",
-      condition: "sunny",
-      icon: "/weather/sunny.png",
-    },
-    {
-      name: "Vienna",
-      temp: "27°",
-      time: "11:23",
-      condition: "rainy",
-      icon: "/weather/rainy.png",
-    },
-    {
-      name: "Athens",
-      temp: "33°",
-      time: "12:23",
-      condition: "storm",
-      icon: "/weather/snow.png",
-    },
-    {
-      name: "Madrid",
-      temp: "31°",
-      time: "10:23",
-      condition: "sunny",
-      icon: "/weather/sunny.png",
-    },
-    {
-      name: "Vienna",
-      temp: "27°",
-      time: "11:23",
-      condition: "rainy",
-      icon: "/weather/rainy.png",
-    },
-    {
-      name: "Athens",
-      temp: "33°",
-      time: "12:23",
-      condition: "storm",
-      icon: "/weather/snow.png",
-    },
   ]
 
   const selectedCityData = cities.find((city) => city.name === selectedCity) || cities[0]
