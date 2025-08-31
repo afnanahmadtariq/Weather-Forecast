@@ -1,8 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { FaMapMarkedAlt } from "react-icons/fa"
 import { MdSpaceDashboard } from "react-icons/md";
 import { FiSettings } from "react-icons/fi"
@@ -11,6 +10,7 @@ import { HiX, HiMenu } from "react-icons/hi"
 
 export function Navigation() {
   const pathname = usePathname()
+  const router = useRouter()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   useEffect(() => {
@@ -69,13 +69,15 @@ export function Navigation() {
               const Icon = item.icon
               const isActive = pathname === item.href
               return (
-                <Link
+                <button
                   key={item.href}
-                  href={item.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={() => {
+                    router.push(item.href)
+                    setIsMobileMenuOpen(false)
+                  }}
                   className={`
                     relative group rounded-xl p-4 border border-white/10 
-                    transition-colors flex items-center gap-3
+                    transition-colors flex items-center gap-3 w-full text-left
                     ${isActive ? 'bg-white/20' : 'bg-white/5 hover:bg-white/10'}
                   `}
                 >
@@ -85,7 +87,7 @@ export function Navigation() {
                   <span className={`text-sm ${isActive ? "text-white" : "text-white/80"}`}>
                     {item.label}
                   </span>
-                </Link>
+                </button>
               )
             })}
           </nav>
@@ -120,12 +122,16 @@ export function Navigation() {
           const isActive = pathname === item.href
           const Icon = item.icon
           return (
-            <Link key={item.href} href={item.href} className="hidden sm:flex flex-col items-center gap-2">
+            <button 
+              key={item.href} 
+              onClick={() => router.push(item.href)}
+              className="hidden sm:flex flex-col items-center gap-2"
+            >
               <div className={`p-2 rounded-lg hover:bg-white/10 cursor-pointer ${isActive ? "bg-white/20" : "bg-white/5"}`}>
                 <Icon size={20} color={isActive ? "white" : "#FFFFFF99"} />
               </div>
               <span className={`text-xs ${isActive ? "text-white" : "text-white/[0.6]"}`}>{item.label}</span>
-            </Link>
+            </button>
           )
         })}
       </div>
