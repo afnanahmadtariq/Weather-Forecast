@@ -45,9 +45,9 @@ export default function WeatherApp() {
   const currentIcon = currentWeather ? mapOwmToIcon(currentWeather.id, isNight) : "/weather/windy.png"
 
   return (
-    <div className="mx-auto flex gap-6">
+    <div className="mx-auto flex flex-col sm:flex-row gap-6">
       {/* Main Content */}
-      <div className="flex-1 space-y-6 mr-86">
+      <div className="flex-1 space-y-6 sm:mr-86 mt-18">
         <SearchBar />
 
         {/* Current Weather */}
@@ -292,7 +292,7 @@ export default function WeatherApp() {
       </div>
 
       {/* Right Sidebar - 7-Day Forecast */}
-      <div className="w-80 fixed right-6 h-[calc(100vh-3rem)] backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6">
+      <div className="sm:w-80 sm:fixed right-6 h-[calc(100vh-3rem)] backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6">
         <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/5"></div>
         <h3 className="text-white text-sm font-medium mb-6 uppercase tracking-wider">7-Day Forecast</h3>
         <div className="divide-y divide-white/[0.2]">
