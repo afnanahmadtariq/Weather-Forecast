@@ -65,7 +65,7 @@ export default function CitiesPage() {
       </div>
 
       {/* Right Sidebar - Selected City Details */}
-      <div className="sm:w-80 space-y-6 sm:fixed right-6">
+      <div className="hidden sm:block sm:w-80 space-y-6 sm:fixed right-6">
         {/* Current Weather for Selected City */}
         <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6 flex flex-row justify-between items-center">
           <div className="text-left">
