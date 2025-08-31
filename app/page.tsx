@@ -73,11 +73,11 @@ export default function WeatherApp() {
         <div className="backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6">
           <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/5"></div>
           <h3 className="text-white/[0.6] text-sm font-medium mb-6 uppercase tracking-wider">Today's Forecast</h3>
-          <div className="grid grid-cols-6 gap-4">
+          <div className="flex flex-row justify-center items-stretch divide-x divide-white/20 gap-4">
             {(loading && !data ? Array.from({ length: 6 }) : hourlySample).map((h: any, idx: number) => {
               if (!h) {
                 return (
-                  <div key={idx} className="text-center">
+                  <div key={idx} className="flex flex-col items-center justify-between gap-4 px-6">
                     <p className="text-white/[0.6] text-sm mb-4">--:--</p>
                     <div className="flex justify-center mb-4">
                       <div className="w-12 h-12 bg-white/10 rounded-lg animate-pulse" />
@@ -90,7 +90,7 @@ export default function WeatherApp() {
               const night = isNightFromIconCode(w?.icon)
               const icon = w ? mapOwmToIcon(w.id, night) : "/weather/windy.png"
               return (
-              <div key={idx} className="text-center">
+              <div key={idx} className="flex flex-col items-center justify-between gap-4 px-6">
                 <p className="text-white/[0.6] text-sm mb-4">{formatLocalTime(h.dt, tz, { hour12: timeFormat12h })}</p>
                 <div className="flex justify-center mb-4">
                   <img src={icon} alt={w?.description ?? "Forecast"} className="w-12 h-auto" />
@@ -290,7 +290,7 @@ export default function WeatherApp() {
       </div>
 
       {/* Right Sidebar - 7-Day Forecast */}
-      <div className="sm:w-80 sm:fixed right-6 h-[calc(100vh-3rem)] backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6">
+      <div className="sm:w-80 sm:fixed right-6 sm:h-[calc(100vh-3rem)] backdrop-blur-xs bg-white/5 shadow-lg rounded-2xl p-6">
         <div className="pointer-events-none absolute inset-0 rounded-2xl [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)] bg-white/5"></div>
         <h3 className="text-white text-sm font-medium mb-6 uppercase tracking-wider">7-Day Forecast</h3>
         <div className="divide-y divide-white/[0.2]">
